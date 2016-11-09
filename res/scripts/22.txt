@@ -1,0 +1,11 @@
+/CASSIOPIA/
+(Whisper, whisper);
+/DRACE/
+Are you sure?;
+/CASSIOPIA/
+Absolutely.;
+/DRACE/
+Well in that case, the next IMPERIAL EMISSARY of REDHAVEN is the the small:
+boy in the back row, two on the right.;
+
+

@@ -1,0 +1,12 @@
+/*/
+SERII!         :
+Are you injured!;
+/SERII/
+Just a few scrapes, I'll be alright.;
+/*/
+What happened?;
+/SERII/
+He... he came out of nowhere...:
+I didn't stand a chance.;
+/*/
+Who?!!!;

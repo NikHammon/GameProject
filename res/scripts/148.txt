@@ -1,0 +1,17 @@
+/*/
+Excuse me?!!;
+/GENOBLADE GUARDIAN/
+The GENOBLADE has no means of being deactivated.;
+/*/
+No! No! NO!:
+There has to be a way of stopping it from going off!;
+/GENOBLADE GUARDIAN/
+Hmmm...           :
+That might be possible.;
+/*/
+What?!!      :
+How?!!;
+/GENOBLADE GUARDIAN/
+I could destroy the weapon.;
+/*/
+Do it!;

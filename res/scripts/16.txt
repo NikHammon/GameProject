@@ -1,0 +1,3 @@
+MAXWELL:  Welcome to Max's Blacksmith shop!-
+This is the place to upgrade an item you found in a Dungeon.-
+Now, which item needs an upgrade?-

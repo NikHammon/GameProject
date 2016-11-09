@@ -1,0 +1,22 @@
+/DRACE/
+She's alive!;
+/FINEAS/
+By heavens it's a miracle!;
+/*/
+Uggggh....       :
+What's happening?        :
+Is everybody alright?;
+/OBIN/
+Everyone is fine.       :
+All thanks to you.;
+/*/
+I'm just doing my job.;
+/DRACE/
+And a fine job you did!:
+REDHAVEN is honored to call you it's IMPERIAL EMISSARY:
+As am I.;
+/FINEAS/
+Yes.      :
+And maybe one day you'll consider workinng for:
+RHINCREST.;
+

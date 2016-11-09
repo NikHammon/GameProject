@@ -1,0 +1,14 @@
+/DRACE/
+What do you make out of all this CASSIOPIA?;
+/CASSIOPIA/
+It sounds like the monster that destroyed my kingdom has laid a curse:
+on SEBASTIAN. Now, we won't what this thing is or what it's capable of unless:
+we lift that curse.;
+/SEBASTIAN/
+So what can we do?;
+/CASSIOPIA/
+I will be in the castle library all night researching.;
+/*/
+Nerd.;
+
+

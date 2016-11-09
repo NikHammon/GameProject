@@ -1,0 +1,30 @@
+/*/
+Wait!? Why do you know my name?;
+/BUDAROTH/
+Simple.              :
+I know who you are, because I made you who you are.           :
+So, the question is...            :
+Do you know what that is?;
+/*/
+I'm not sure what you're talking about.;
+/BUDAROTH/
+Let's start from the beginning. Not the beginning of your:
+boring, boring life as a farm hand, but from the moment you:
+were selected as REDHAVEN's IMPERIAL EMISSARY. Do you remember:
+what happened that day, *?;
+/*/
+Yeah, of course. Everybody was in CASTLE SQUARE, when SOVEREIGNESS:
+CASSIOPIA suggested to DRACE that I should be the next IMPERIAL:
+EMISSARY.;
+/BUDAROTH/
+Yessss, yesss, precisely. But REDHAVEN's people didn't like that very:
+much did they? You aren't their typical IMPERIAL EMISSARY are you?;
+/*/
+What are you gettting at?;
+/BUDAROTH/
+Aren't you curious as to why you were choosen?;
+/*/
+I just got a very bad feeling about this.;
+/BUDAROTH/
+*, There's someone here that would very much like to see you...      :
+Come on now, don't be shy SOVEREIGNESS.;

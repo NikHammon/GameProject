@@ -1,0 +1,17 @@
+/GENOBLADE GUARDIAN/
+Do not take another step.  :
+I am the GUARDIAN of this weapon any opponent that:
+comes near it must be defeated.;
+/*/
+Yeah, well, you could have done a better job of that.:
+The GENOBLADE has already been activated.:
+We need to turn it off.;
+/GENOBLADE GUARDIAN/
+It is not my place to delegate how the weapon is used.:
+I meerly serve to keep the unworthy from using it.;
+/*/
+You're not listening to me.:
+If that weapon goes off alot of people are going to die.          :
+And I can't let that happen.;
+/GENOBLADE GUARDIAN/
+Then prepare to be annihilated.;

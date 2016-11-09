@@ -1,0 +1,17 @@
+/CASSIOPIA/
+Hello, *.;
+/CASSIOPIA/
+You'll be pleased to hear that I did, in fact, find something:
+of use in my research last night.;
+/CASSIOPIA/
+Across the ocean to the west there is a temple on an island. According:
+to ancient lore, here in this temple lies and artifact with the power to reverse:
+the effects of dark magic.;
+/CASSIOPIA/
+Recover the relic and bring it to me. There's a chance this is the key:
+to unlocking SEBASTIAN's memory. If he can remember who is responsible for:
+destroying HARMONIA we have a shot at stopping this monster before it:
+strikes again.;
+/*/
+Are you worried that the monster will come here?       :
+To REDHAVEN?;

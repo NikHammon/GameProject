@@ -1,0 +1,2 @@
+Store items on the right.:
+Take items on the left.;

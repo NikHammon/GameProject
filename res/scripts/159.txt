@@ -1,0 +1,2 @@
+A QUEST has been completed would you like to:
+return to REDHAVEN?~

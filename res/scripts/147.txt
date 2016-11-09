@@ -1,0 +1,9 @@
+/GENOBLADE GUARDIAN/
+You have defeated me in battle.      :
+You are worthy of using the GENOBLADE.;
+/*/
+Fantastic.        :
+So... how do I turn it off?;
+/GENOBLADE GUARDIAN/
+...         :
+There is no way.;

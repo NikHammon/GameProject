@@ -1,0 +1,7 @@
+/OBIN/
+She's finished;
+/*/
+Good ridance.            :
+Will you come with me now?;
+/OBIN/
+Yes, of course.;

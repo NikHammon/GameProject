@@ -1,0 +1,2 @@
+Deposit gold on the right.:
+Withdraw gold on the left.;

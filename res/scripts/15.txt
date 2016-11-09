@@ -1,0 +1,4 @@
+/ZAIRA/ 
+I'm sorry but you don't have enough money.;
+/ZAIRA/ 
+Do you wish to buy anything else today?;
