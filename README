@@ -1,0 +1,5 @@
+To run:
+'''
+mvn package
+java -cp target/my-game-1.0-SNAPSHOT.jar com.base.game.Main
+'''
