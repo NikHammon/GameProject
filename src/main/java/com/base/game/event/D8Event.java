@@ -265,7 +265,7 @@ public class D8Event extends Event
 				player.setState("CHASE");
 				handler.getBaseCamp().setDungeonsCleared(8);
 				handler.getGame().getGameState().getLevelManager().setInDungeon(false);
-				handler.getGame().getGameState().getLevelManager().getDungeons().get(handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon()).setCurrentFloorNum(0);
+				//handler.getGame().getGameState().getLevelManager().getDungeons().get(handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon()).setCurrentFloorNum(0);
 				handler.getGame().geteManager().getPlayer().equip(player);
 				handler.getGame().getGameState().getLevelManager().getBaseCamp().setState("CASTLEAREA");
 				handler.getGame().getGameState().getLevelManager().getBaseCamp().setNPCs();

@@ -72,7 +72,7 @@ public abstract class Event
 	
 	public void complete()
 	{
-		chest.setOpened(handler.getBaseCamp().getChestsOpened()[handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon()]);
+		// chest.setOpened(handler.getBaseCamp().getChestsOpened()[handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon()]);
 		
 		handler.getGame().geteManager().addEntity(chest);
 		handler.getGame().geteManager().addEntity(portal);

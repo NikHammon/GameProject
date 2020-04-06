@@ -17,35 +17,25 @@ import javax.sound.sampled.Clip;
 
 public class Utils 
 {
-	public static String loadFileAsString(String path)
-	{
+	public static String loadFileAsString(String path) {
 		StringBuilder builder = new StringBuilder();
-		
-		try{
-			BufferedReader br = new BufferedReader(new FileReader("./res/levels/" + path));
+		try (BufferedReader br = new BufferedReader(new FileReader("./res/levels/" + path))){
 			String line;
 			while((line = br.readLine()) != null)
 				builder.append(line + "\n");
-			
-			br.close();
 		}catch(IOException e){
 			e.printStackTrace();
 		}
-		
 		return builder.toString();
 	}
 	
-	public static String loadCMFileAsString(String path)
-	{
+	public static String loadCMFileAsString(String path) {
 		StringBuilder builder = new StringBuilder();
 		
-		try{
-			BufferedReader br = new BufferedReader(new FileReader("./res/cMaps/" + path));
+		try(BufferedReader br = new BufferedReader(new FileReader("./res/cMaps/" + path))){
 			String line;
 			while((line = br.readLine()) != null)
 				builder.append(line + "\n");
-			
-			br.close();
 		}catch(IOException e){
 			e.printStackTrace();
 		}
@@ -53,28 +43,21 @@ public class Utils
 		return builder.toString();
 	}
 	 
-	public static String readScript(String scriptNum)
-	{
+	public static String readScript(String scriptNum) {
 		StringBuilder builder = new StringBuilder();
 		
-		try{
-			BufferedReader br = new BufferedReader(new FileReader("./res/scripts/" + scriptNum + ".txt"));
+		try(BufferedReader br = new BufferedReader(new FileReader("./res/scripts/" + scriptNum + ".txt"))){
 			String line;
 			while((line = br.readLine()) != null)
 				builder.append(line + "\n");
-			
-			br.close();
-		}catch(IOException e){
+		} catch(IOException e){
 			e.printStackTrace();
 		}
-		
 		return builder.toString();
 	}
 	
-	public static void playSound(String path)
-	{
-		try {
-	        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./res/audio/" + path + ".wav").getAbsoluteFile());
+	public static void playSound(String path) {
+		try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("./res/audio/" + path + ".wav").getAbsoluteFile())){
 	        Clip clip = AudioSystem.getClip();
 	        clip.open(audioInputStream);
 	        clip.start();
@@ -84,12 +67,10 @@ public class Utils
 	    }
 	}
 	
-	public static int parseInt(String number)
-	{
-		try{
+	public static int parseInt(String number) {
+		try {
 			return Integer.parseInt(number);
-		}catch(NumberFormatException e)
-		{
+		} catch(NumberFormatException e) {
 			e.printStackTrace();
 			return 0;
 		}
@@ -116,8 +97,7 @@ public class Utils
 	    return tinted;
 	}
 	
-	public static void drawFadedImage(Graphics g, float alpha, BufferedImage b, int x, int y, int width, int height)
-	{
+	public static void drawFadedImage(Graphics g, float alpha, BufferedImage b, int x, int y, int width, int height) {
 		if(alpha < 0)
 			alpha = 0;
 		else if(alpha > 1)
@@ -128,5 +108,4 @@ public class Utils
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
 	}
-
 }	

@@ -41,7 +41,7 @@ public class Portal extends EventEntity
 				break;
 			case 1:
 				oldPlayer = handler.getGame().getPlayer();
-				handler.getGame().getGameState().getLevelManager().getDungeons().get(handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon()).setCurrentFloorNum(0);
+				// handler.getGame().getGameState().getLevelManager().getDungeons().get(handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon()).setCurrentFloorNum(0);
 				handler.getGame().getGameState().getLevelManager().setInDungeon(false);
 				handler.getGame().getGameState().getEffects().fade(0);
 				

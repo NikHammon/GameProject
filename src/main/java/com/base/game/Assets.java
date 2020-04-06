@@ -5,7 +5,8 @@ public class Assets
 {
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage black, titleScreen, titleScreenBG, settingsIcon, num1, num2, num3, aKey, sKey, wKey, dKey, eKey;
+	public static BufferedImage black, titleScreen, titleScreenBG, settingsIcon, aKey, sKey, wKey, dKey, eKey;
+	public static BufferedImage[] menuNumbers;
 	public static BufferedImage selectorTLft, selectorTRgt, selectorBLft, selectorBRgt;
 	
 	public static BufferedImage scroll, scrollTaken, bossIcon, artifact;
@@ -269,10 +270,10 @@ public class Assets
 		playerDot[0] = holoMapSheet.crop(250, 0, 8, 8);
 		playerDot[1] = holoMapSheet.crop(258, 0, 8, 8);
 		playerDot[2] = holoMapSheet.crop(266, 0, 8, 8);
-		
-		num1 = numberSheet.crop(0, 0, 120, 120);
-		num2 = numberSheet.crop(120, 0, 120, 120);
-		num3 = numberSheet.crop(240, 0, 120, 120);
+
+		menuNumbers = new BufferedImage[3];
+		for(int i = 0; i < menuNumbers.length; ++i)
+			menuNumbers[i] = numberSheet.crop(120 * i, 0, 120, 120);
 		
 		aKey = keyButtonSheet.crop(0, 0, 45, 45);
 		
@@ -2978,32 +2979,36 @@ public class Assets
 		SpriteSheet D5TileSheet = new SpriteSheet(ResourceLoader.loadTexture("D5Tileset.png"));
 		SpriteSheet D7TileSheet = new SpriteSheet(ResourceLoader.loadTexture("D7Tileset.png"));
 		SpriteSheet D8TileSheet = new SpriteSheet(ResourceLoader.loadTexture("D8Tileset.png"));
-		
-		D1Tileset = new BufferedImage[24];
+
+		D1Tileset = new BufferedImage[30];
 		D1Tileset[0] = sheet4.crop(0, 0, width, height);
+
 		D1Tileset[1] = D1TileSheet.crop(0, 0, width, height);
+		D1Tileset[2] = D1TileSheet.crop(width, 0, width , height);
 		D1Tileset[3] = D1TileSheet.crop(width * 2, 0, width, height);
-		D1Tileset[11] = D1TileSheet.crop(0, height * 2, width, height);
-		D1Tileset[13] = D1TileSheet.crop(width*2, height*2, width, height);
+		D1Tileset[4] = D1TileSheet.crop(width * 3, 0, width, height);
+		D1Tileset[5] = D1TileSheet.crop(width * 4, 0, width, height);
+		D1Tileset[6] = D1TileSheet.crop(width * 0, height * 1, width, height * 1);
 		D1Tileset[7] = D1TileSheet.crop(width * 1, height * 1, width * 1, height * 1);
-		D1Tileset[4] = D1TileSheet.crop(width * 3, height * 0, width * 1, height * 1);
-		D1Tileset[5] = D1TileSheet.crop(width * 4, height * 0, width * 1, height * 1);
-		D1Tileset[10] = D1TileSheet.crop(width * 4, height * 1, width * 1, height * 1);
-		D1Tileset[6] = D1TileSheet.crop(width * 0, height * 1, width * 1, height * 1);
-		D1Tileset[2] = D1TileSheet.crop(width * 1, height * 0, width * 1, height * 1);
-		D1Tileset[12] = D1TileSheet.crop(width * 1, height * 2, width * 1, height * 1);
 		D1Tileset[8] = D1TileSheet.crop(width * 2, height * 1, width * 1, height * 1);
 		D1Tileset[9] = D1TileSheet.crop(width * 3, height * 1, width * 1, height * 1);
+		D1Tileset[10] = D1TileSheet.crop(width * 4, height * 1, width * 1, height * 1);
+		D1Tileset[11] = D1TileSheet.crop(0, height * 2, width, height);
+		D1Tileset[12] = D1TileSheet.crop(width * 1, height * 2, width * 1, height * 1);
+		D1Tileset[13] = D1TileSheet.crop(width*2, height*2, width, height);
 		D1Tileset[14] = D1TileSheet.crop(width * 0, height * 3, width * 1, height * 1);
 		D1Tileset[15] = D1TileSheet.crop(width * 1, height * 3, width * 1, height * 1);
 		D1Tileset[16] = D1TileSheet.crop(width * 2, height * 3, width * 1, height * 1);
 		D1Tileset[17] = D1TileSheet.crop(width * 0, height * 5, width * 1, height * 1);
 		D1Tileset[18] = D1TileSheet.crop(width * 1, height * 5, width * 1, height * 1);
 		D1Tileset[19] = D1TileSheet.crop(width * 2, height * 5, width * 1, height * 1);
-		D1Tileset[20] = D1TileSheet.crop(320, 480, width * 1, height * 1);
-		D1Tileset[21] = D1TileSheet.crop(352, 480, width * 1, height * 1);
-		D1Tileset[22] = D1TileSheet.crop(384, 480, width * 1, height * 1);
-		D1Tileset[23] = D1TileSheet.crop(width * 4, height * 2, width * 1, height * 1);
+		for(int i = 20; i < 26; ++i)
+			D1Tileset[i] = sheet4.crop(0, 0, width, height);
+		D1Tileset[26] = D1TileSheet.crop(320, 480, width * 1, height * 1);
+		D1Tileset[27] = D1TileSheet.crop(352, 480, width * 1, height * 1);
+		D1Tileset[28] = D1TileSheet.crop(384, 480, width * 1, height * 1);
+		D1Tileset[29] = D1TileSheet.crop(width * 4, height * 2, width * 1, height * 1);
+
 		
 		D1StaticEntities1 = new BufferedImage[1];
 		D1StaticEntities1[0] = D1TileSheet.crop(width * 7, height * 9, width, height * 2);

@@ -16,8 +16,7 @@ import com.base.game.Utils;
 import com.base.game.entity.eventEntity.NPC.Budaroth;
 import com.base.game.tiles.Tile;
 
-public class Effects
-{
+public class Effects {
 	private Handler handler;
 	private float alpha;
 	private String state;
@@ -34,6 +33,13 @@ public class Effects
 		dBox = new DialogBox(handler);
 		smoke = new Animation(50, Assets.smokeScreen, 1);
 		lightning = new Animation(50, Assets.lightning, 1);
+	}
+
+	public static void drawStringWithShadow(Graphics g, String s, Color c, int x, int y) {
+		g.setColor(Color.BLACK);
+		g.drawString(s, x+2, y+2);
+		g.setColor(c);
+		g.drawString(s, x, y);
 	}
 
 	float opacity;
@@ -60,8 +66,7 @@ public class Effects
 	int floorNum;
 	String name;
 	long timer, lastTime;
-	public void displayDungeon(int floorNum, String name)
-	{
+	public void displayDungeon(int floorNum, String name) {
 		state = "DUNGEONDISPLAY";		
 		this.floorNum = floorNum;
 		this.name = name;
@@ -70,23 +75,20 @@ public class Effects
 	}
 	
 	boolean activeDBox;
-	public void displayDialog(int scriptNum)
-	{
+	public void displayDialog(int scriptNum) {
 		activeDBox = true;
 		dBox.setScriptNum(scriptNum);
 	}
 	
 	float sunriseAlpha;
-	public void sunrise()
-	{
+	public void sunrise() {
 		sunriseAlpha = .8f;
 		state = "SUNRISE";
 	}
 	
 	
 	int selector, dungeonsUnlocked;
-	public void selectDungeon(int selector, int dungeonsUnlocked)
-	{
+	public void selectDungeon(int selector, int dungeonsUnlocked) {
 		secondState = "DUNGEONSELECTION";
 		this.selector = selector;
 		this.dungeonsUnlocked = dungeonsUnlocked;
@@ -105,9 +107,7 @@ public class Effects
 	}
 	
 	boolean renderSmokeScreen;	
-	public void smokescreen()
-	{
-		
+	public void smokescreen() {
 		renderSmokeScreen = true;
 		smoke.reset();
 	}
@@ -118,8 +118,7 @@ public class Effects
 	float thunderAlpha, darkAlpha;
 	float thunderAlphaSpeed;
 	int boltX,boltY;
-	public void thunderStorm()
-	{
+	public void thunderStorm() {
 		tStormState = "INIT";
 		thunderStorm = true;
 		thunderAlpha = darkAlpha = 0;
@@ -130,18 +129,14 @@ public class Effects
 	float budarothAlpha;
 	Budaroth budaroth; 
 	Random rand = new Random();
-	public void render(Graphics g) 
-	{
+	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		
-		if(renderSmokeScreen)
-		{
-			if(smoke.isComplete())
-			{
+		if(renderSmokeScreen) {
+			if(smoke.isComplete()) {
 				renderSmokeScreen = false;
 			}
-			else
-			{
+			else {
 				smoke.update();
 
 				g.drawImage(smoke.getCurrentFrame(), (int)((10 * Tile.TILE_WIDTH - 32) - handler.getCamera().getxOffset()), (int)(12 * Tile.TILE_HEIGHT - 50 - handler.getCamera().getyOffset()), smoke.getCurrentFrame().getWidth() *2, smoke.getCurrentFrame().getHeight() *2, null);
@@ -151,21 +146,17 @@ public class Effects
 			
 		}
 		
-		if(thunderStorm)
-		{
-			if(tStormState == "INIT")
-			{
+		if(thunderStorm) {
+			if(tStormState == "INIT") {
 				darkAlpha += .003;
 				
-				if(darkAlpha >= .3)
-				{
+				if(darkAlpha >= .3) {
 					tStormState = "STORM";
 					flashColor = rand.nextInt(400);
 					darkAlpha = .3f;
 				}
 			}
-			else if(tStormState == "STORM")
-			{
+			else if(tStormState == "STORM") {
 				if(flashColor == 0)
 					Utils.drawFadedImage(g2d, thunderAlpha, Assets.yellowLightning, 0, 0, handler.getWidth(), handler.getHeight());
 				else if(flashColor == 1)
@@ -173,15 +164,12 @@ public class Effects
 				else if(flashColor == 2)
 					Utils.drawFadedImage(g2d, thunderAlpha, Assets.whiteOut, 0, 0, handler.getWidth(), handler.getHeight());
 					
-				if(flashColor == 0 || flashColor == 1 || flashColor == 2)
-				{
-					if(thunderAlpha + thunderAlphaSpeed >= .3)
-					{
+				if(flashColor == 0 || flashColor == 1 || flashColor == 2) {
+					if(thunderAlpha + thunderAlphaSpeed >= .3) {
 						thunderAlphaSpeed = -thunderAlphaSpeed;
 						
 					}
-					else if(thunderAlpha + thunderAlphaSpeed <= 0)
-					{
+					else if(thunderAlpha + thunderAlphaSpeed <= 0) {
 						thunderAlphaSpeed = -thunderAlphaSpeed;
 						flashColor = rand.nextInt(400);
 					}
@@ -189,27 +177,20 @@ public class Effects
 					darkAlpha -= thunderAlphaSpeed;
 				}
 				else
-				{
 					flashColor = rand.nextInt(400);
-				}
 				
-				if(lightningStorm)
-				{
-					if(!boltActive && rand.nextInt(100) == 0)
-					{
+				if(lightningStorm) {
+					if(!boltActive && rand.nextInt(100) == 0) {
 						boltActive = true;
 						boltX = (rand.nextInt(2) == 1) ? rand.nextInt(handler.getWidth()/2 - 72) : rand.nextInt(handler.getWidth() - 72) + handler.getWidth()/2 + 112;
 						boltY = -rand.nextInt(100);
 					}
-					if(boltActive)
-					{
-						if(lightning.isComplete())
-						{
+					if(boltActive) {
+						if(lightning.isComplete()) {
 							boltActive = false;
 							lightning.reset();
 						}
-						else
-						{
+						else {
 							lightning.update();
 							g.drawImage(lightning.getCurrentFrame(), boltX, boltY, lightning.getCurrentFrame().getWidth()*2, lightning.getCurrentFrame().getHeight()*2, null);
 						}
@@ -234,8 +215,7 @@ public class Effects
 			handler.getGame().getGameState().getLevelManager().getpInterface().render(g);
 		}
 		
-		if(forestSceen)
-		{
+		if(forestSceen) {
 			if(budaroth == null)
 				budaroth = new Budaroth(handler, 0, 0, 0);
 			g.drawImage(Assets.forestBG, 0, 0, Assets.forestBG.getWidth() * 2, Assets.forestBG.getHeight() * 2,null);
@@ -244,8 +224,7 @@ public class Effects
 				budaroth.getCurrentAnimation().update();
 		}
 		
-		if(drawRect)
-		{
+		if(drawRect) {
 			g2d.setColor(Color.BLACK);
 			g2d.fillRect((int)(x-handler.getCamera().getxOffset()), (int)(y-handler.getCamera().getyOffset()), width, height);
 		}
@@ -300,8 +279,8 @@ public class Effects
 			g.drawString(name, (handler.getWidth() - g.getFontMetrics().stringWidth(name))/2, 200);
 			g.drawString("F" + Integer.toString(floorNum), handler.getWidth()/2 - 15, 245);		
 			
-			g.drawImage(Assets.selector[0], handler.getWidth()/2 - 48, 280, 96, 96, null);	
-			g.drawImage(Assets.elements[handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon() + 1], handler.getWidth()/2 - 48, 280, 96, 96, null);
+			g.drawImage(Assets.selector[0], handler.getWidth()/2 - 48, 280, 96, 96, null);
+			g.drawImage(handler.getGame().getPlayer().getCurrentDungeon().getSymbol(), handler.getWidth()/2 - 48, 280, 96, 96, null);
 			
 			timer += System.currentTimeMillis() - lastTime;
 		break;
@@ -315,11 +294,9 @@ public class Effects
 		
 		}
 		
-		switch(secondState)
-		{
+		switch(secondState) {
 		case "DUNGEONSELECTION":
-			for(int i = 1; i < 5; i++)
-			{	
+			for(int i = 1; i < 5; i++) {
 				if(i == selector)
 					g.drawImage(Assets.selector[0], 55 + i*120, 190, 96, 96, null);
 				if(i > dungeonsUnlocked)
@@ -327,8 +304,7 @@ public class Effects
 				else
 					g.drawImage(Assets.elements[i], 55 + i*120, 190, 96, 96, null);
 			}
-			for(int i = 5; i < 9; i++)
-			{	
+			for(int i = 5; i < 9; i++) {
 				if(i == selector)
 					g.drawImage(Assets.selector[0], 55 + (i-4)*120, 300, 96, 96, null);
 				if(i > dungeonsUnlocked)

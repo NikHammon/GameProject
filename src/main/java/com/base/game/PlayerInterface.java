@@ -35,9 +35,8 @@ public class PlayerInterface
 			if(state == "ITEMD")
 				updateItemD();
 		}
-
 	}
-	
+
 	public void render(Graphics g)
 	{
 		if(active)
@@ -90,7 +89,7 @@ public class PlayerInterface
 	int witemWidth, witemHeight, sitemWidth, sitemHeight, ditemWidth, ditemHeight;
 	
 	int increaseRate = 4;
-	
+
 	private void updateItemW()
 	{
 		witemWidth += increaseRate;
@@ -105,7 +104,7 @@ public class PlayerInterface
 			state = "NORMAL";
 		}
 	}
-	
+
 	private void updateItemS()
 	{
 		sitemWidth += increaseRate;
@@ -120,7 +119,7 @@ public class PlayerInterface
 			state = "NORMAL";
 		}
 	}
-	
+
 	private void updateItemD()
 	{
 		ditemWidth += increaseRate;
@@ -135,6 +134,7 @@ public class PlayerInterface
 			state = "NORMAL";
 		}
 	}
+
 	int rVal=150;
 	int rRate = 5;
 	private void updateHpBar()
@@ -143,7 +143,7 @@ public class PlayerInterface
 		if(rVal < 150 || rVal + rRate > 250)
 			rRate = -rRate;
 	}
-	
+
 	public String getState() {
 		return state;
 	}
@@ -159,6 +159,7 @@ public class PlayerInterface
 	public void setActive(boolean active) {
 		this.active = active;
 	}
+	
 	
 	
 }

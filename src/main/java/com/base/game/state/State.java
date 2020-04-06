@@ -8,8 +8,7 @@ public abstract class State
 	protected Handler handler;
 	protected Effects effects;
 	
-	public State(Handler handler)
-	{
+	public State(Handler handler) {
 		this.handler = handler;
 		effects = new Effects(handler);
 	}

@@ -1,38 +1,22 @@
 package com.base.game.entity;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.base.game.Animation;
 import com.base.game.Assets;
 import com.base.game.Handler;
-import com.base.game.UserData;
 import com.base.game.Utils;
-import com.base.game.entity.attacks.Quake;
 import com.base.game.entity.eventEntity.EventEntity;
-import com.base.game.entity.item.Amulet;
-import com.base.game.entity.item.Gauntlet;
 import com.base.game.entity.item.WingedBoots;
 import com.base.game.entity.item.GunLance;
 import com.base.game.entity.item.Item;
 import com.base.game.entity.item.MainItem;
-import com.base.game.entity.item.PuppetHands;
-import com.base.game.entity.item.ShadowPuppet;
 import com.base.game.entity.item.MonkeyStaff;
-import com.base.game.entity.item.Tessen;
 import com.base.game.entity.item.Whip;
-import com.base.game.tiles.Tile;
+import com.base.game.levels.Dungeon;
 
 public class Player extends Creature
 {	
@@ -62,6 +46,9 @@ public class Player extends Creature
 	
 	private float monkeySpeed, gunLanceSpeed;
 	private boolean cameraActive, paused;
+
+	private Dungeon currentDungeon;
+	private int currentFloor;
 	
 	public Player(Handler handler) 
 	{
@@ -132,6 +119,7 @@ public class Player extends Creature
 	public void update() 
 	{				
 		super.update();
+
 //		System.out.println(state);
 //		System.out.println(handler.getBaseCamp().getQuestTracker());
 //		System.out.println(handler.getBaseCamp().getGameProgress());
@@ -217,8 +205,7 @@ public class Player extends Creature
 		setCurrentAnimation();
 	}
 	
-	private void action()
-	{	
+	private void action() {
 		cameraActive = true;
 
 		bImage = null;
@@ -235,17 +222,14 @@ public class Player extends Creature
 		move();				
 	}	
 	
-	private void cheer()
-	{
-		if(playerCheering.isComplete() && handler.getInput().a)
-		{
+	private void cheer() {
+		if(playerCheering.isComplete() && handler.getInput().a) {
 			state = "CHASE";
 			direction = 4;
 		}
 	}
 	
-	private void dead()
-	{
+	private void dead() {
 		xVar = 0; yVar = 0;
 		health = 0;
 		xVel = 0;
@@ -257,8 +241,7 @@ public class Player extends Creature
 		playerRise.reset();
 	}
 	
-	public void rise()
-	{
+	public void rise() {
 		health = myHealth;
 		activeHeartCrystals = 3;
 		statusCondition = "";
@@ -275,8 +258,7 @@ public class Player extends Creature
 			state = "CHASE";
 	}
 	
-	private void climbUp()
-	{
+	private void climbUp() {
 		yVar = 8;
 		layer = 5;
 		yMove = 0;
@@ -287,8 +269,7 @@ public class Player extends Creature
 		
 	}
 	
-	private void climbDown()
-	{
+	private void climbDown() {
 		yVar = 8;
 		layer = 5;
 		yMove = 0;
@@ -299,10 +280,8 @@ public class Player extends Creature
 		
 	}
 
-	public void setFallingAnimation()
-	{
-		if(lastItemUsed instanceof WingedBoots)
-		{
+	public void setFallingAnimation() {
+		if(lastItemUsed instanceof WingedBoots) {
 			if(direction == 7 || direction == 0 || direction == 1)
 				currentAnimation = playerFallingUpGBoots;
 			else if(direction == 2)
@@ -312,8 +291,7 @@ public class Player extends Creature
 			else if(direction == 3 || direction == 4 || direction == 5)
 				currentAnimation = playerFallingDownGBoots;
 		}
-		else
-		{
+		else {
 			if(direction == 7 || direction == 0 || direction == 1)
 				currentAnimation = playerFallingUp;
 			else if(direction == 2)
@@ -326,12 +304,8 @@ public class Player extends Creature
 	}
 		
 	private long lastTimeUsedItem;
-	private void getInput()
-	{
-		
-		
-		if(lastItemUsed instanceof MonkeyStaff)
-		{
+	private void getInput() {
+		if(lastItemUsed instanceof MonkeyStaff) {
 			if(handler.getInput().up)
 				yMove = -monkeySpeed;	
 			if(handler.getInput().down)
@@ -341,8 +315,7 @@ public class Player extends Creature
 			if(handler.getInput().right)
 				xMove = monkeySpeed;
 		}
-		else if(lastItemUsed instanceof GunLance)
-		{
+		else if(lastItemUsed instanceof GunLance) {
 			if(handler.getInput().up)
 				yMove = -gunLanceSpeed;	
 			if(handler.getInput().down)
@@ -352,8 +325,7 @@ public class Player extends Creature
 			if(handler.getInput().right)
 				xMove = gunLanceSpeed;
 		}
-		else
-		{
+		else {
 			if(handler.getInput().up)
 				yMove = -currSpeed;	
 			if(handler.getInput().down)
@@ -364,61 +336,52 @@ public class Player extends Creature
 				xMove = currSpeed;
 		}
 		
-		if(handler.getInput().w && itemW != null)
-		{
+		if(handler.getInput().w && itemW != null) {
 			state = "ITEMW";
 			lastItemUsed = itemW;
 			handler.getGame().getGameState().getLevelManager().getpInterface().setState("ITEMW");
 			lastTimeUsedItem = System.currentTimeMillis();
 		}
 		
-		if(handler.getInput().s && itemS != null)
-		{
+		if(handler.getInput().s && itemS != null) {
 			state = "ITEMS";
 			lastItemUsed = itemS;
 			handler.getGame().getGameState().getLevelManager().getpInterface().setState("ITEMS");
 			lastTimeUsedItem = System.currentTimeMillis();
 		}
 		
-		if(handler.getInput().d && itemD != null)
-		{
+		if(handler.getInput().d && itemD != null) {
 			state = "ITEMD";
 			lastItemUsed = itemD;
 			handler.getGame().getGameState().getLevelManager().getpInterface().setState("ITEMD");
 			lastTimeUsedItem = System.currentTimeMillis();
 		}
 		
-		if(handler.getInput().a)
-		{
+		if(handler.getInput().a) {
 			for(Entity e : handler.getGame().geteManager().getEntities())
 				if(e instanceof EventEntity && ((EventEntity) e).getEventSpace().intersects(getCollisionBounds(0,0)))
 					e.on = true;
 		}
-		
-		if(handler.getInput().z)
-		{
+		if(handler.getInput().z) {
 			handler.getGame().getGameState().getEffects().displayDialog(2);
 			
 			handler.getGame().saveState();
 			
 		}
-		if(handler.getInput().e)
-		{
+		if(handler.getInput().e) {
 			handler.getGame().getGameState().getLevelManager().getiInterface().setActive(true);
 		}
 
 	}
 
 	float grplTarX, grplTarY;
-	public void setGrappling(float x, float y)
-	{
+	public void setGrappling(float x, float y) {
 		state = "GRAPPLING";
 		grplTarX = x;
 		grplTarY = y;
 	}
 	
-	public void grappling()
-	{
+	public void grappling() {
 		setFallingAnimation();
 		moveTo(grplTarX, grplTarY);
 		
@@ -434,23 +397,18 @@ public class Player extends Creature
 	float alpha = -1;
 	float alphaRate = .25f;
 	int count;
-	public void recover()
-	{
+	public void recover() {
 		if(alpha < 0)
-		{
 			alpha = 0;
-		}
 
-		if(alphaRate + alpha > 1 || alphaRate + alpha < 1)
-		{
+		if(alphaRate + alpha > 1 || alphaRate + alpha < 1) {
 			alphaRate = -alphaRate;
 			count++;
 		}
 		
 		alpha+=alphaRate;
 		
-		if(count > 30)
-		{
+		if(count > 30) {
 			count = 0;
 			recovering = false;
 			alpha = -1;
@@ -463,17 +421,13 @@ public class Player extends Creature
 	int xVar;
 	
 	@Override
-	public void render(Graphics g) 
-	{	
+	public void render(Graphics g) {
 		super.render(g);
-		if(bImage != null)
-		{
+		if(bImage != null) {
 			g.drawImage(bImage, (int) (x - handler.getCamera().getxOffset()), (int) (y - handler.getCamera().getyOffset()), width + xVar, height + yVar, null);
 		}
-		else
-		{
-			if(alpha != -1)
-			{
+		else {
+			if(alpha != -1){
 				if(getCurrentAnimation() != null)		
 					Utils.drawFadedImage(g, alpha, currentAnimation.getCurrentFrame(), (int) (x - handler.getCamera().getxOffset()), (int) (y - handler.getCamera().getyOffset()), width + xVar, height + yVar);
 				else if(lastItemUsed instanceof MonkeyStaff)
@@ -483,8 +437,7 @@ public class Player extends Creature
 				else
 					Utils.drawFadedImage(g, alpha, Assets.playerStationary[direction],(int) (x - handler.getCamera().getxOffset()), (int) (y - handler.getCamera().getyOffset()), width, height);
 			}
-			else if(rVal == 0 && gVal == 0 && bVal == 0)
-			{
+			else if(rVal == 0 && gVal == 0 && bVal == 0) {
 				if(getCurrentAnimation() != null)		
 					g.drawImage(currentAnimation.getCurrentFrame(), (int) (x - handler.getCamera().getxOffset()), (int) (y - handler.getCamera().getyOffset()), width + xVar, height + yVar, null);
 				else if(lastItemUsed instanceof MonkeyStaff)
@@ -494,8 +447,7 @@ public class Player extends Creature
 				else
 					g.drawImage(Assets.playerStationary[direction],(int) (x - handler.getCamera().getxOffset()), (int) (y - handler.getCamera().getyOffset()), width, height, null);
 			}
-			else
-			{
+			else {
 				if(getCurrentAnimation() != null)		
 					g.drawImage(Utils.tintImage(currentAnimation.getCurrentFrame(), rVal, gVal, bVal), (int) (x - handler.getCamera().getxOffset()), (int) (y - handler.getCamera().getyOffset()), width + xVar, height + yVar, null);
 				else if(lastItemUsed instanceof MonkeyStaff)
@@ -524,8 +476,7 @@ public class Player extends Creature
 	
 	Animation expressionAnimation;
 	int expressionOffsetX, expressionOffsetY;
-	public void renderExpression(Graphics g)
-	{
+	public void renderExpression(Graphics g) {
 		if(expressionAnimation.isComplete())
 			expressionAnimation = null;
 		else
@@ -535,8 +486,7 @@ public class Player extends Creature
 		}
 	}
 	
-	public void addHealth(int num)
-	{
+	public void addHealth(int num) {
 		setrVal(200);
 		setgVal(150);
 		setbVal(150);
@@ -552,8 +502,7 @@ public class Player extends Creature
 			health = myHealth;
 	}
 	
-	public void addHeartCrystal()
-	{
+	public void addHeartCrystal() {
 		setrVal(200);
 		setgVal(150);
 		setbVal(150);
@@ -568,10 +517,8 @@ public class Player extends Creature
 		health = 10;		
 	}
 	
-	public void takeDamage(int damage)
-	{
-		if(state != "KNOCKBACK")
-		{
+	public void takeDamage(int damage) {
+		if(state != "KNOCKBACK") {
 			health-=damage;
 			recovering = true;
 			count = 0;
@@ -579,8 +526,7 @@ public class Player extends Creature
 		}
 	}
 	
-	public void addMoney(int num)
-	{
+	public void addMoney(int num) {
 		setrVal(215);
 		setgVal(200);
 		setbVal(150);
@@ -591,8 +537,7 @@ public class Player extends Creature
 			money = walletSize;
 	}
 	
-	public boolean takeMoney(int num)
-	{
+	public boolean takeMoney(int num) {
 		if(money >= num)
 		{
 			money-=num;
@@ -601,8 +546,7 @@ public class Player extends Creature
 		return false;
 	}
 	
-	public void setCurrentAnimation()
-	{	
+	public void setCurrentAnimation() {
 		if(lastItemUsed instanceof MonkeyStaff)
 		{	
 			if(yMove > 0 && xMove == 0)
@@ -695,45 +639,36 @@ public class Player extends Creature
 				currentAnimation = null;
 		
 		}
-		else
-		{
-			if(yMove > 0 && xMove == 0)
-			{
+		else {
+			if(yMove > 0 && xMove == 0) {
 				currentAnimation = playerDown;
 				direction = DOWN;
 			}
-			else if(yMove < 0 && xMove == 0)
-			{
+			else if(yMove < 0 && xMove == 0) {
 				currentAnimation =  playerUp;
 				direction = UP;
 			}
-			else if(xMove < 0 && yMove == 0)
-			{
+			else if(xMove < 0 && yMove == 0) {
 				currentAnimation = playerLeft;
 				direction = LEFT;
 			}
-			else if(xMove > 0 && yMove == 0)
-			{
+			else if(xMove > 0 && yMove == 0) {
 				currentAnimation = playerRight;
 				direction = RIGHT;
 			}
-			else if(xMove < 0 && yMove > 0)
-			{
+			else if(xMove < 0 && yMove > 0) {
 				currentAnimation = playerDownLeft;
 				direction = DOWNLEFT;
 			}
-			else if(xMove > 0 && yMove > 0)
-			{
+			else if(xMove > 0 && yMove > 0) {
 				currentAnimation = playerDownRight;
 				direction = DOWNRIGHT;
 			}
-			else if(xMove < 0 && yMove < 0)
-			{
+			else if(xMove < 0 && yMove < 0) {
 				currentAnimation = playerUpLeft;
 				direction = UPLEFT;
 			}
-			else if(xMove > 0 && yMove < 0)
-			{
+			else if(xMove > 0 && yMove < 0) {
 				currentAnimation = playerUpRight;
 				direction = UPRIGHT;
 			}
@@ -742,8 +677,7 @@ public class Player extends Creature
 		}
 	}
 	
-	public void equip(Player oldPlayer)
-	{
+	public void equip(Player oldPlayer) {
 		itemW = oldPlayer.itemW;
 		itemS = oldPlayer.itemS;
 		itemD = oldPlayer.itemD;
@@ -755,8 +689,7 @@ public class Player extends Creature
 		state = "CHASE";
 	}
 	
-	public void refresh(Player oldPlayer)
-	{
+	public void refresh(Player oldPlayer) {
 		itemW = oldPlayer.itemW;
 		itemS = oldPlayer.itemS;
 		itemD = oldPlayer.itemD;
@@ -768,8 +701,7 @@ public class Player extends Creature
 		state = "CHASE";
 	}
 	
-	public void setMainItem(MainItem item, char button)
-	{
+	public void setMainItem(MainItem item, char button) {
 		if(button == 'w')
 		{
 			if(itemW != null)
@@ -831,7 +763,6 @@ public class Player extends Creature
 	public int getActiveHeartCrystals() {
 		return activeHeartCrystals;
 	}
-
 	public void setActiveHeartCrystals(int numHeartCrystals) {
 		this.activeHeartCrystals = numHeartCrystals;
 	}
@@ -839,7 +770,6 @@ public class Player extends Creature
 	public int getTotalHeartCrystals() {
 		return totalHeartCrystals;
 	}
-
 	public void setTotalHeartCrystals(int totalHeartCrystals) {
 		this.totalHeartCrystals = totalHeartCrystals;
 	}
@@ -847,7 +777,6 @@ public class Player extends Creature
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -855,21 +784,26 @@ public class Player extends Creature
 	public boolean isPaused() {
 		return paused;
 	}
-
 	public void setPaused(boolean paused) {
 		this.paused = paused;
 	}
 
+	public Dungeon getCurrentDungeon() { return currentDungeon; }
+	public int getCurrentFloor() {
+		return currentFloor;
+	}
 	public Animation getExpressionAnimation() {
 		return expressionAnimation;
 	}
-
-	public void setExpressionAnimation(Animation expressionAnimation, int expressionOffsetX, int expressionOffsetY) 
-	{
+	public void setExpressionAnimation(Animation expressionAnimation, int expressionOffsetX, int expressionOffsetY) {
 		this.expressionAnimation = expressionAnimation;
 		this.expressionOffsetX = expressionOffsetX;
 		this.expressionOffsetY = expressionOffsetY;
 	}
-	
-	
+	public void setCurrentDungeon(Dungeon d) {
+		currentDungeon = d;
+	}
+	public void setCurrentFloor(int i) {
+		currentFloor = i;
+	}
 }

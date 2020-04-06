@@ -12,8 +12,7 @@ public class Window
 	private int width, height;
 	private String title;
 	
-	public Window(int width, int height, String title)
-	{
+	public Window(int width, int height, String title) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
@@ -21,8 +20,7 @@ public class Window
 		createWindow();
 	}
 	
-	private void createWindow()
-	{
+	private void createWindow() {
 		frame = new JFrame(title);
 		frame.setSize(width, height);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

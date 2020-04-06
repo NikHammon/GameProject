@@ -79,7 +79,6 @@ import com.base.game.tiles.Tile;
 public class BaseCamp 
 {
 	private Handler handler;
-	private EntityManager eManager;
 	private QuestBoard qBoard;
 	private ShopKeeper sKeeper;
 	private BlackSmith bSmith;
@@ -105,8 +104,7 @@ public class BaseCamp
 	public BaseCamp(Handler handler)
 	{
 		this.handler = handler;	
-		eManager = new EntityManager(handler, new Player(handler));
-		
+
 		qBoard = new QuestBoard(handler);
 		sKeeper = new ShopKeeper(handler);
 		bSmith = new BlackSmith(handler);
@@ -407,7 +405,7 @@ public class BaseCamp
 		
 		
 		houseDoor.update();
-		eManager.update();
+		handler.getGame().geteManager().update();
 		currentLocation.update();
 	}
 	
@@ -420,13 +418,13 @@ public class BaseCamp
 		if(gameProgress >= 4)
 			activebSmith = true;
 		
-		itr = eManager.getEntities().iterator();
+		itr =handler.getGame().geteManager().getEntities().iterator();
 		while(itr.hasNext())
 		{
 			Entity e = itr.next();
 			if(e instanceof NPC)
 			{
-				eManager.removeEntity(e);
+				handler.getGame().geteManager().removeEntity(e);
 			}
 		}
 		
@@ -457,43 +455,43 @@ public class BaseCamp
 			if(gameProgress >= 0)
 			{
 				
-				eManager.addEntity(abraham);
+				handler.getGame().geteManager().addEntity(abraham);
 				abraham.setScriptNum(164);
 				
-				eManager.addEntity(bean);
+				handler.getGame().geteManager().addEntity(bean);
 				bean.setScriptNum(165);
 				
-				eManager.addEntity(jane);
+				handler.getGame().geteManager().addEntity(jane);
 				jane.setScriptNum(166);
 				
-				eManager.addEntity(erika);
+				handler.getGame().geteManager().addEntity(erika);
 				erika.setScriptNum(167);
 			}
 			if(gameProgress >= 2)
 			{
-				eManager.addEntity(clarabel);
+				handler.getGame().geteManager().addEntity(clarabel);
 			}
 			if(gameProgress >= 4)
 			{
 				
-				eManager.addEntity(ken);
+				handler.getGame().geteManager().addEntity(ken);
 				ken.setDirection(4);
 				ken.setDoesNotMove(true);
 				ken.setScriptNum(171);
 				
-				eManager.addEntity(garrison);
+				handler.getGame().geteManager().addEntity(garrison);
 				garrison.setScriptNum(172);
 				
-				eManager.addEntity(shane);
+				handler.getGame().geteManager().addEntity(shane);
 				shane.setScriptNum(173);
 				
-				eManager.addEntity(felicity);
+				handler.getGame().geteManager().addEntity(felicity);
 				felicity.setScriptNum(174);
 				
-				eManager.addEntity(victor);
+				handler.getGame().geteManager().addEntity(victor);
 				victor.setScriptNum(175);
 				
-				eManager.addEntity(miranda);
+				handler.getGame().geteManager().addEntity(miranda);
 				miranda.setScriptNum(176);
 				
 				clarabel.setScriptNum(177);
@@ -504,7 +502,7 @@ public class BaseCamp
 			}
 			if(gameProgress >= 5)
 			{
-				eManager.addEntity(sebastian);
+				handler.getGame().geteManager().addEntity(sebastian);
 				sebastian.setScriptNum(182);
 				sebastian.setDoesNotMove(true);
 			}
@@ -524,16 +522,16 @@ public class BaseCamp
 			}
 			if(gameProgress == 8 || gameProgress == 15 || (questTracker != -1 && !events.get(7).isRanOnce()))
 			{
-				eManager.removeEntity(sebastian);
+				handler.getGame().geteManager().removeEntity(sebastian);
 			}
 			
 			if(gameProgress >= 11)
 			{
-				eManager.addEntity(crawford);
+				handler.getGame().geteManager().addEntity(crawford);
 				crawford.setCurrentAnimation(crawford.upRgt);
 				crawford.setDoesNotMove(true);
 				crawford.setScriptNum(208);
-				eManager.addEntity(riggs);
+				handler.getGame().geteManager().addEntity(riggs);
 				riggs.setCurrentAnimation(riggs.dwnLft);
 				riggs.setDoesNotMove(true);
 				serii.setX(400);
@@ -553,7 +551,7 @@ public class BaseCamp
 			}
 			if(gameProgress >= 14)
 			{
-				eManager.addEntity(serii);
+				handler.getGame().geteManager().addEntity(serii);
 				serii.setDirection(5);
 				serii.setDoesNotMove(true);
 				serii.setScriptNum(209);
@@ -587,7 +585,7 @@ public class BaseCamp
 			}
 			if(gameProgress >= 19)
 			{
-				eManager.addEntity(rubel);
+				handler.getGame().geteManager().addEntity(rubel);
 				ken.setScriptNum(232);
 				garrison.setScriptNum(233);
 				shane.setScriptNum(234);
@@ -641,22 +639,22 @@ public class BaseCamp
 		{
 			if(gameProgress >= 0)
 			{
-				eManager.addEntity(guard1);
+				handler.getGame().geteManager().addEntity(guard1);
 				guard1.setDirection(4);
 				guard1.setDoesNotMove(true);
 				guard1.setScriptNum(168);
-				eManager.addEntity(guard2);
+				handler.getGame().geteManager().addEntity(guard2);
 				guard2.setDirection(4);
 				guard2.setDoesNotMove(true);
 				guard2.setScriptNum(169);
 			}
 			if(gameProgress >= 8)
 			{
-				eManager.addEntity(drace);
+				handler.getGame().geteManager().addEntity(drace);
 				drace.setDirection(6);
 				drace.setDoesNotMove(true);
 				drace.setScriptNum(266);
-				eManager.addEntity(cassiopia);
+				handler.getGame().geteManager().addEntity(cassiopia);
 				cassiopia.setDirection(2);
 				cassiopia.setDoesNotMove(true);
 				cassiopia.setScriptNum(267);
@@ -664,7 +662,7 @@ public class BaseCamp
 			if(gameProgress >= 10)
 			{
 				drace.setScriptNum(268);
-				eManager.addEntity(fineas);
+				handler.getGame().geteManager().addEntity(fineas);
 				fineas.setDirection(2);
 				fineas.setDoesNotMove(true);
 				fineas.setScriptNum(269);
@@ -675,7 +673,7 @@ public class BaseCamp
 			}
 			if(gameProgress >= 11)
 			{
-				eManager.removeEntity(cassiopia);
+				handler.getGame().geteManager().removeEntity(cassiopia);
 				drace.setScriptNum(270);
 				fineas.setScriptNum(271);
 			}
@@ -686,7 +684,7 @@ public class BaseCamp
 			}
 			if(gameProgress >= 19)
 			{
-				eManager.addEntity(obin);
+				handler.getGame().geteManager().addEntity(obin);
 				obin.setDoesNotMove(true);
 				obin.setDirection(4);
 				drace.setScriptNum(274);
@@ -701,9 +699,9 @@ public class BaseCamp
 			}
 			if(gameProgress == 14 || gameProgress == 17 ||gameProgress == 23)
 			{
-				eManager.removeEntity(drace);
-				eManager.removeEntity(fineas);
-				eManager.removeEntity(obin);
+				handler.getGame().geteManager().removeEntity(drace);
+				handler.getGame().geteManager().removeEntity(fineas);
+				handler.getGame().geteManager().removeEntity(obin);
 			}
 			
 		}
@@ -711,101 +709,99 @@ public class BaseCamp
 
 	}
 	
-	public void setBarriers()
-	{
-		itr = eManager.getEntities().iterator();
+	public void setBarriers() {
+		itr = handler.getGame().geteManager().getEntities().iterator();
 		while(itr.hasNext())
 		{
 			Entity e = itr.next();
 			if(e instanceof Barrier)
 			{
-				eManager.removeEntity(e);
+				handler.getGame().geteManager().removeEntity(e);
 			}
 		}
 		
 		if(state == "CONNECTOR")
 		{
-			eManager.addEntity(new Barrier(handler, 0, 680, 0, 1800, 200));
-			eManager.addEntity(new Barrier(handler, 940, 0, 0, 860, 376));
-			eManager.addEntity(new Barrier(handler, 0, 0, 0, 640, 720));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 680, 0, 1800, 200));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 940, 0, 0, 860, 376));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 0, 0, 640, 720));
 		}
 		else if(state == "CASTLEAREA")
 		{
-			eManager.addEntity(new Barrier(handler, 0, 1340, 0, 740, 200));
-			eManager.addEntity(new Barrier(handler, 928, 1340, 0, 740, 200));
-			eManager.addEntity(new Barrier(handler, 0, 0, 0, 230, 1460));
-			eManager.addEntity(new Barrier(handler, 1434, 0, 0, 230, 1460));
-			eManager.addEntity(new Barrier(handler, 0, 0, 0, 1606, 980));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 1340, 0, 740, 200));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 928, 1340, 0, 740, 200));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 0, 0, 230, 1460));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1434, 0, 0, 230, 1460));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 0, 0, 1606, 980));
 		}
 		else if(state == "MAINAREA")
 		{
 //			if(gameProgress < 3)
-//				eManager.addEntity(new Barrier(handler, 574, 1620, 0, 68, 108));
+//				handler.getGame().geteManager().addEntity(new Barrier(handler, 574, 1620, 0, 68, 108));
 			
-			eManager.addEntity(new Barrier(handler, 0, 0, 0, 240, 1056));
-			eManager.addEntity(new Barrier(handler, 0, 0, 0, 3072, 168));
-			eManager.addEntity(new Barrier(handler, 0, 1348, 0, 184, 1724));
-			eManager.addEntity(new Barrier(handler, 180, 2432, 0, 200, 640));
-			eManager.addEntity(new Barrier(handler, 378, 2498, 0, 460, 574));
-			eManager.addEntity(new Barrier(handler, 840, 2284, 0, 16, 788));
-			eManager.addEntity(new Barrier(handler, 1130, 2284, 0, 16, 788));
-			eManager.addEntity(new Barrier(handler, 842, 2740, 0, 2230, 332));
-			eManager.addEntity(new Barrier(handler, 1142, 2496, 0, 1930, 576));
-			eManager.addEntity(new Barrier(handler, 1414, 2436, 0, 904, 102));
-			eManager.addEntity(new Barrier(handler, 2692, 2308, 0, 380, 118));
-			eManager.addEntity(new Barrier(handler, 2818, 2242, 0, 254, 80));
-			eManager.addEntity(new Barrier(handler, 2882, 2118, 0, 190, 142));
-			eManager.addEntity(new Barrier(handler, 2946, 0, 0, 126, 2254));
-			eManager.addEntity(new Barrier(handler, 2886, 196, 0, 94, 1270));
-			eManager.addEntity(new Barrier(handler, 2818, 388, 0, 100, 886));
-			eManager.addEntity(new Barrier(handler, 2762, 642, 0, 68, 248));
-			eManager.addEntity(new Barrier(handler, 2082, 554, 0, 490, 864));
-			eManager.addEntity(new Barrier(handler, 1978, 1522, 0, 864, 490));
-			eManager.addEntity(new Barrier(handler, 1008, 2678, 0, 122, 70));
-			eManager.addEntity(new Barrier(handler, 488, 1658, 0, 64, 140));
-			eManager.addEntity(new Barrier(handler, 310, 1472, 0, 394, 190));
-			eManager.addEntity(new Barrier(handler, 512, 1652, 0, 64, 76));
-			eManager.addEntity(new Barrier(handler, 640, 1620, 0, 64, 106));
-			eManager.addEntity(new Barrier(handler, 628, 896, 0, 344, 192));
-			eManager.addEntity(new Barrier(handler, 1128, 416, 0, 826, 262));
-			eManager.addEntity(new Barrier(handler, 1180, 676, 0, 774, 140));
-			eManager.addEntity(new Barrier(handler, 1180, 816, 0, 734, 48));
-			eManager.addEntity(new Barrier(handler, 1196, 864, 0, 676, 64));
-			eManager.addEntity(new Barrier(handler, 1678, 1752, 0, 100, 88));
-			eManager.addEntity(new Barrier(handler, 950, 1344, 0, 396, 320));
-			eManager.addEntity(new Barrier(handler, 1344, 1344, 0, 512, 192));
-			eManager.addEntity(new Barrier(handler, 964, 1616, 0, 96, 70));
-			eManager.addEntity(new Barrier(handler, 1124, 1628, 0, 108, 58));
-			eManager.addEntity(new Barrier(handler, 1342, 1524, 0, 42, 92));
-			eManager.addEntity(new Barrier(handler, 1600, 1496, 0, 256, 76));
-			eManager.addEntity(new Barrier(handler, 830, 464, 0, 74, 94));
-			eManager.addEntity(new Barrier(handler, 1812, 1736, 0, 48, 54));
-			eManager.addEntity(new Barrier(handler, 1758, 1810, 0, 48, 54));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 0, 0, 240, 1056));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 0, 0, 3072, 168));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 1348, 0, 184, 1724));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 180, 2432, 0, 200, 640));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 378, 2498, 0, 460, 574));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 840, 2284, 0, 16, 788));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1130, 2284, 0, 16, 788));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 842, 2740, 0, 2230, 332));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1142, 2496, 0, 1930, 576));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1414, 2436, 0, 904, 102));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 2692, 2308, 0, 380, 118));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 2818, 2242, 0, 254, 80));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 2882, 2118, 0, 190, 142));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 2946, 0, 0, 126, 2254));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 2886, 196, 0, 94, 1270));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 2818, 388, 0, 100, 886));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 2762, 642, 0, 68, 248));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 2082, 554, 0, 490, 864));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1978, 1522, 0, 864, 490));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1008, 2678, 0, 122, 70));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 488, 1658, 0, 64, 140));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 310, 1472, 0, 394, 190));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 512, 1652, 0, 64, 76));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 640, 1620, 0, 64, 106));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 628, 896, 0, 344, 192));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1128, 416, 0, 826, 262));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1180, 676, 0, 774, 140));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1180, 816, 0, 734, 48));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1196, 864, 0, 676, 64));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1678, 1752, 0, 100, 88));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 950, 1344, 0, 396, 320));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1344, 1344, 0, 512, 192));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 964, 1616, 0, 96, 70));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1124, 1628, 0, 108, 58));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1342, 1524, 0, 42, 92));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1600, 1496, 0, 256, 76));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 830, 464, 0, 74, 94));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1812, 1736, 0, 48, 54));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1758, 1810, 0, 48, 54));
 		}
 		else if(state == "BEDROOM")
 		{
-			eManager.addEntity(new Barrier(handler, 0, 0, 0, 1078, 254));
-			eManager.addEntity(new Barrier(handler, 0, 0, 0, 54, 824));
-			eManager.addEntity(new Barrier(handler, 54, 310, 0, 100, 320));
-			eManager.addEntity(new Barrier(handler, 118, 384, 0, 74, 256));
-			eManager.addEntity(new Barrier(handler, 192, 384, 0, 56, 310));
-			eManager.addEntity(new Barrier(handler, 312, 448, 0, 50, 250));
-			eManager.addEntity(new Barrier(handler, 362, 448, 0, 334, 192));
-			eManager.addEntity(new Barrier(handler, 696, 384, 0, 192, 256));
-			eManager.addEntity(new Barrier(handler, 504, 50, 0, 62, 412));
-			eManager.addEntity(new Barrier(handler, 504, 50, 0, 62, 412));
-			eManager.addEntity(new Barrier(handler, 952, 448, 0, 64, 248));
-			eManager.addEntity(new Barrier(handler, 950, 48, 0, 74, 266));
-			eManager.addEntity(new Barrier(handler, 1016, 0, 0, 62, 826));
-			eManager.addEntity(new Barrier(handler, 832, 640, 0, 48, 56));
-			eManager.addEntity(new Barrier(handler, 582, 640, 0, 34, 40));
-			eManager.addEntity(new Barrier(handler, 390, 640, 0, 34, 40));
-			eManager.addEntity(new Barrier(handler, 452, 406, 0, 52, 42));
-			eManager.addEntity(new Barrier(handler, 312, 192, 0, 128, 128));
-			eManager.addEntity(new Barrier(handler, 568, 342, 0, 56, 106));
-			eManager.addEntity(new Barrier(handler, 0, 766, 0, 504, 60));
-			eManager.addEntity(new Barrier(handler, 630, 766, 0, 488, 60));
-			
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 0, 0, 1078, 254));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 0, 0, 54, 824));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 54, 310, 0, 100, 320));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 118, 384, 0, 74, 256));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 192, 384, 0, 56, 310));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 312, 448, 0, 50, 250));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 362, 448, 0, 334, 192));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 696, 384, 0, 192, 256));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 504, 50, 0, 62, 412));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 504, 50, 0, 62, 412));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 952, 448, 0, 64, 248));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 950, 48, 0, 74, 266));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 1016, 0, 0, 62, 826));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 832, 640, 0, 48, 56));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 582, 640, 0, 34, 40));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 390, 640, 0, 34, 40));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 452, 406, 0, 52, 42));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 312, 192, 0, 128, 128));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 568, 342, 0, 56, 106));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 0, 766, 0, 504, 60));
+			handler.getGame().geteManager().addEntity(new Barrier(handler, 630, 766, 0, 488, 60));
 		}
 	}
 	
@@ -816,92 +812,66 @@ public class BaseCamp
 			currentWidth = Assets.townCastle.getWidth()*2;currentHeight = Assets.townCastle.getHeight()*2;
 			g.drawImage(Assets.townCastle, (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), Assets.townCastle.getWidth()*2, Assets.townCastle.getHeight()*2, null);	
 			
-			for(Entity e : eManager.getEntities())
+			for(Entity e :handler.getGame().geteManager().getEntities())
 			{
-				eManager.render(e, g);
+				handler.getGame().geteManager().render(e, g);
 			}
 			
 			g.drawImage(Assets.townCastleTop, (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), Assets.townCastle.getWidth()*2, Assets.townCastle.getHeight()*2, null);	
 			
 		}
-		else if(state == "CONNECTOR")
-		{
+		else if(state == "CONNECTOR") {
 			currentWidth = Assets.connection1.getWidth()*2;currentHeight = Assets.connection1.getHeight()*2;
 			g.drawImage(Assets.connection1, (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), Assets.connection1.getWidth()*2, Assets.connection1.getHeight()*2, null);	
 			
-			for(Entity e : eManager.getEntities())
-			{
-				eManager.render(e, g);
-			}
+			for(Entity e :handler.getGame().geteManager().getEntities())
+				handler.getGame().geteManager().render(e, g);
 			g.drawImage(Assets.connectionTop, (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), Assets.connectionTop.getWidth()*2, Assets.connectionTop.getHeight()*2, null);	
 			
 		}
-		else if(state == "BEDROOM" || state == "TOSAVE" || state == "SAVING")
-		{
+		else if(state == "BEDROOM" || state == "TOSAVE" || state == "SAVING") {
 			currentWidth = Assets.bedroom.getWidth()*2;currentHeight = Assets.bedroom.getHeight()*2;
 			g.drawImage(Assets.bedroom, (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), Assets.bedroom.getWidth()*2, Assets.bedroom.getHeight()*2, null);	
 			
-			for(Entity e : eManager.getEntities())
-			{
-				eManager.render(e, g);
-			}
+			for(Entity e : handler.getGame().geteManager().getEntities())
+				handler.getGame().geteManager().render(e, g);
+
 			g.drawImage(Assets.bedroomTop, (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), Assets.bedroom.getWidth()*2, Assets.bedroom.getHeight()*2, null);	
 			
 			if(storing)
-			{
 				myStorage.render(g);
-			}	
 		}
-		else
-		{
+		else {
 			currentWidth = currentLocation.getCurrentFrame().getWidth()*2;currentHeight = currentLocation.getCurrentFrame().getHeight()*2;
 			g.drawImage(currentLocation.getCurrentFrame(), (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), currentLocation.getCurrentFrame().getWidth()*2, currentLocation.getCurrentFrame().getHeight()*2, null);	
 			
 			if(activeShopKeeper)
-			{
-				g.drawImage(Assets.zaria, (int)(1064 - handler.getCamera().getxOffset()), (int)(1560-handler.getCamera().getyOffset()), Assets.zaria.getWidth()*2, Assets.zaria.getHeight()*2, null);	
-			}
+				g.drawImage(Assets.zaria, (int)(1064 - handler.getCamera().getxOffset()), (int)(1560-handler.getCamera().getyOffset()), Assets.zaria.getWidth()*2, Assets.zaria.getHeight()*2, null);
 			if(activebSmith)
-			{
 				g.drawImage(Assets.max, (int)(1212 - handler.getCamera().getxOffset()), (int)(1563-handler.getCamera().getyOffset()), Assets.max.getWidth()*2, Assets.max.getHeight()*2, null);	
-			}
-			
+
 			g.drawImage(Assets.buildingDecor, (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), currentLocation.getCurrentFrame().getWidth()*2, currentLocation.getCurrentFrame().getHeight()*2, null);
 				
 			houseDoor.render(g);
 			
-			for(Entity e : eManager.getEntities())
-			{
-				eManager.render(e, g);
-			}
+			for(Entity e :handler.getGame().geteManager().getEntities())
+				handler.getGame().geteManager().render(e, g);
 			
 			g.drawImage(Assets.buildings, (int)-handler.getCamera().getxOffset(), (int)-handler.getCamera().getyOffset(), currentLocation.getCurrentFrame().getWidth()*2, currentLocation.getCurrentFrame().getHeight()*2, null);
 			
 			if(state == "QUESTSELECT")
-			{
 				qBoard.render(g);
-			}
 			else if(state == "SHOPKEEPER")
-			{
 				sKeeper.render(g);
-			}
 			else if(state == "BLACKSMITH")
-			{
 				bSmith.render(g);
-			}
-			
 			if(!activeBoat)
-			{
-				g.drawImage(Assets.boat, (int)(940 - handler.getCamera().getxOffset()), (int)(2800-handler.getCamera().getyOffset()), Assets.boat.getWidth()*2, Assets.boat.getHeight()*2, null);	
-			}
-			else
-			{
+				g.drawImage(Assets.boat, (int)(940 - handler.getCamera().getxOffset()), (int)(2800-handler.getCamera().getyOffset()), Assets.boat.getWidth()*2, Assets.boat.getHeight()*2, null);
+			else {
 				boatX += 6;
 				g.drawImage(Assets.boatWPlayer, (int)(940 + boatX - handler.getCamera().getxOffset()), (int)(2800-handler.getCamera().getyOffset()), Assets.boat.getWidth()*2, Assets.boat.getHeight()*2, null);
 				if(handler.getGame().getGameState().getEffects().getAlpha() == 1)
-				{
 					activeBoat = false;
-				}
 			}
 			
 		}
@@ -920,13 +890,11 @@ public class BaseCamp
 			
 	}
 	
-	public void addQuest()
-	{
+	public void addQuest() {
 		questsCompleted++;
 		qBoard.generateQuests();
 		
-		if(questTracker >= 0)
-		{
+		if(questTracker >= 0) {
 			questTracker++;
 			if(questTracker >= 1)//number of quests done between events
 			{
@@ -935,14 +903,6 @@ public class BaseCamp
 			}
 			events.get(7).setRanOnce(false);
 		}
-	}
-
-	public EntityManager geteManager() {
-		return eManager;
-	}
-
-	public void seteManager(EntityManager eManager) {
-		this.eManager = eManager;
 	}
 
 	public BufferedImage getCurrentLocation() {
@@ -1016,99 +976,49 @@ public class BaseCamp
 	public boolean isActiveBoat() {
 		return activeBoat;
 	}
-
 	public void setActiveBoat(boolean activeBoat) {
 		this.activeBoat = activeBoat;
 	}
-
-
-
 	public int getDungeonsUnlocked() {
 		return dungeonsUnlocked;
 	}
-
-
-
 	public void setDungeonsUnlocked(int dungeonsUnlocked) {
 		this.dungeonsUnlocked = dungeonsUnlocked;
 	}
-
-
-
 	public int getDungeonsCleared() {
 		return dungeonsCleared;
 	}
-
-
-
 	public void setDungeonsCleared(int dungeonsCleared) {
 		this.dungeonsCleared = dungeonsCleared;
 	}
-
-
-
 	public boolean isEventRunning() {
 		return isEventRunning;
 	}
-
-
-
 	public void setEventRunning(boolean isEventRunning) {
 		this.isEventRunning = isEventRunning;
 	}
-
-
-
 	public boolean isSleeping() {
 		return sleeping;
 	}
-
-
-
 	public void setSleeping(boolean sleeping) {
 		this.sleeping = sleeping;
 	}
-
-
-
 	public int getCurrentWidth() {
 		return currentWidth;
 	}
-
-
-
 	public void setCurrentWidth(int currentWidth) {
 		this.currentWidth = currentWidth;
 	}
-
-
-
 	public int getCurrentHeight() {
 		return currentHeight;
 	}
-
-
-
 	public void setCurrentHeight(int currentHeight) {
 		this.currentHeight = currentHeight;
 	}
-
-
-
 	public boolean[] getChestsOpened() {
 		return chestsOpened;
 	}
-
-
-
 	public void setChestsOpened(boolean[] chestsOpened) {
 		this.chestsOpened = chestsOpened;
 	}
-	
-	
-	
-	
-	
-	
-	
 }

@@ -569,8 +569,7 @@ public abstract class Creature extends Entity
 	int tileX2, tileY2, nwX2, nwY2;
 	
 	boolean hasJumped;
-	public boolean collisionWithTile(float x1, float y1, float x2, float y2)
-	{
+	public boolean collisionWithTile(float x1, float y1, float x2, float y2) {
 		if(!handler.getGame().getGameState().getLevelManager().isInDungeon())
 			return false;
 			
@@ -636,7 +635,7 @@ public abstract class Creature extends Entity
 		
 		//so you can't kill yourself after you beat a boss
 		if(handler.getGame().getGameState().getLevelManager().isInDungeon() && handler.getBaseCamp().getDungeonsCleared() > handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon())
-			if(handler.getGame().getGameState().getLevelManager().getCurrentDungeon().getCurrentFloorNum() == handler.getGame().getGameState().getLevelManager().getCurrentDungeon().getBossFloorNum())
+			if(handler.getGame().getPlayer().getCurrentFloor() == handler.getGame().getPlayer().getCurrentDungeon().getBossFloor())
 				return true;
 
 		

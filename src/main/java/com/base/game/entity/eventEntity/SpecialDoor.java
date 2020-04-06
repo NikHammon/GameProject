@@ -26,23 +26,20 @@ public class SpecialDoor extends EventEntity
 	public void update()
 	{		
 		//System.out.println(state);
-		if(handler.getGame().getPlayer().getCollisionBounds(0, 0).intersects(eventSpace) && on)
-		{
+		if(handler.getGame().getPlayer().getCollisionBounds(0, 0).intersects(eventSpace) && on) {
 			state = "DUNGEONSELECTION";
 			handler.getGame().getGameState().getEffects().fade(.5f);
 			on = false;
 			handler.getGame().geteManager().getPlayer().setState("IDLE");
 		}
 		
-		if(!handler.getGame().geteManager().getPlayer().getCollisionBounds(0, 0).intersects(eventSpace))
-		{
+		if(!handler.getGame().geteManager().getPlayer().getCollisionBounds(0, 0).intersects(eventSpace)) {
 			state = null;
 			on = true;
 			selector = 1;
 		}
 		
-		if(state == "DUNGEONSELECTION")
-		{
+		if(state == "DUNGEONSELECTION") {
 			handler.getGame().getGameState().getEffects().selectDungeon(selector, handler.getBaseCamp().getDungeonsUnlocked());
 			
 			if(handler.getInput().a)
@@ -67,10 +64,9 @@ public class SpecialDoor extends EventEntity
 			else if(handler.getInput().rightPressed && selector < Assets.elements.length-1)
 				selector++;
 		}
-		else if(state == "SELECTED")
-		{
+		else if(state == "SELECTED") {
 			handler.getGame().geteManager().getPlayer().setForceMove("DOWN", "DOWN", "DOWN");
-			handler.getGame().getGameState().getLevelManager().setCurrentDungeon(selector-1);
+			// handler.getGame().getGameState().getLevelManager().setCurrentDungeon(selector-1);
 			state = null;
 		}
 	}

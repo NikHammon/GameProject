@@ -21,16 +21,13 @@ public class DungeonDoor extends EventEntity
 	}
 
 	@Override
-	public void update() 
-	{
-		if(handler.getLevel().geteManager().getPlayer().getCollisionBounds(0, 0).intersects(eventSpace))
-		{
+	public void update() {
+		if(handler.getLevel().geteManager().getPlayer().getCollisionBounds(0, 0).intersects(eventSpace)) {
 			currentAnimation.update();
 			handler.getLevel().geteManager().getPlayer().setDoNotRender(true);
 			handler.getLevel().geteManager().getPlayer().setDoNotUpdate(true);
-			handler.getGame().getGameState().getLevelManager().setCurrentDungeon(handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon());
+			handler.getGame().getGameState().getLevelManager().setCurrentDungeon(handler.getGame().getPlayer().getCurrentDungeon());
 		}
-		
 	}
 
 	@Override

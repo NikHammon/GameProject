@@ -2,6 +2,7 @@ package com.base.game.levels;
 
 import java.awt.Graphics;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Assets;
 import com.base.game.Handler;
@@ -25,37 +26,29 @@ public class Level
 	private int lastDoorUsed;
 	
 	private Dungeon dungeon;
-	private EntityManager eManager;
-	
+
 	private boolean isQuestFloor = false;
-	
-	Random rand = new Random();
-	
-	public Level(Handler handler, String path, Dungeon dungeon)
-	{
+
+	public Level(Handler handler, String path, Dungeon dungeon) {
 		this.handler = handler;	
-		eManager = new EntityManager(handler, new Player(handler));
 		this.dungeon = dungeon;
 		loadLevel(path);
 	}
 
-	public void spawnPlayer(int spawnX, int spawnY, int spawnLayer)
-	{
-		eManager.getPlayer().setX(spawnX);
-		eManager.getPlayer().setY(spawnY);
-		eManager.getPlayer().setLayer(spawnLayer);
+	public void spawnPlayer(int spawnX, int spawnY, int spawnLayer) {
+		handler.getGame().getPlayer().setX(spawnX);
+		handler.getGame().getPlayer().setY(spawnY);
+		handler.getGame().getPlayer().setLayer(spawnLayer);
 	}
 	
-	public void update() 
-	{
-		eManager.update();
-		
-		if(dungeon != null)
-			dungeon.getpLayer().update(eManager.getPlayer().getxVel(), eManager.getPlayer().getyVel());
+	public void update() {
+		handler.getGame().geteManager().update();
+
+//		if(dungeon != null)
+//			dungeon.getpLayer().update(handler.getGame().getPlayer().getxVel(), handler.getGame().getPlayer().getyVel());
 	}	
 	
-	public void render(Graphics g)
-	{		
+	public void render(Graphics g) {
 		//tiles only draw in viewport
 		int xStart = (int) Math.max(0, handler.getCamera().getxOffset() / Tile.TILE_WIDTH);
 		int xEnd = (int) Math.min(width, (handler.getCamera().getxOffset() + handler.getWidth()) / Tile.TILE_WIDTH + 1);
@@ -67,14 +60,10 @@ public class Level
 //			dungeon.getpLayer().render(g);
 //		}
 		
-		for(int z = 0; z < layers; z++)
-		{
-			for(int y = yStart; y < yEnd; y++)
-			{
-				for(int x = xStart; x < xEnd; x++)
-				{
-					if(dungeon != null && z == 0)
-					{
+		for(int z = 0; z < layers; z++) {
+			for(int y = yStart; y < yEnd; y++) {
+				for(int x = xStart; x < xEnd; x++) {
+					if(dungeon != null && z == 0) {
 						if(tiles[x][y][z] == 14)
 							dungeon.getTile(26).render(g, (int)(x * Tile.TILE_WIDTH - handler.getCamera().getxOffset()),
 									(int)(y * Tile.TILE_HEIGHT - handler.getCamera().getyOffset()));
@@ -86,8 +75,7 @@ public class Level
 									(int)(y * Tile.TILE_HEIGHT - handler.getCamera().getyOffset()));
 
 					}
-					else if(tiles[x][y][z] != 0)
-					{
+					else if(tiles[x][y][z] != 0) {
 						getTile(x,y,z).render(g, (int)(x * Tile.TILE_WIDTH - handler.getCamera().getxOffset()),
 								(int)(y * Tile.TILE_HEIGHT - handler.getCamera().getyOffset()));
 					}
@@ -95,48 +83,35 @@ public class Level
 				
 					
 				}
-				for(Entity e : eManager.getEntities())
-				{
-					if(e.getX() + e.getWidth() > xStart * (Tile.TILE_WIDTH - 1) && e.getX() < xEnd * (Tile.TILE_WIDTH) && e.getY() + e.getHeight() > yStart * (Tile.TILE_HEIGHT - 1) && e.getY() < yEnd * (Tile.TILE_HEIGHT))
-					{
-						if(e.isRenderBelowTile())
-						{
+
+				for(Entity e : handler.getGame().geteManager().getEntities()) {
+					if(e.getX() + e.getWidth() > xStart * (Tile.TILE_WIDTH - 1) && e.getX() < xEnd * (Tile.TILE_WIDTH) && e.getY() + e.getHeight() > yStart * (Tile.TILE_HEIGHT - 1) && e.getY() < yEnd * (Tile.TILE_HEIGHT)) {
+						if(e.isRenderBelowTile()) {
 							if(e.getLayer() == z + 1)
-								eManager.render(e, g);
+								handler.getGame().geteManager().render(e, g);
 						}
-						else
-						{
-							if((e.getY()-20)/Tile.TILE_HEIGHT > y && e.getLayer() == z - 1)//it can render over one layer above if it is more than one tile higher on the screen
-							{
-								if(e.getState() == "FALLING")
-								{
-									if(e.getDirection() == 7 || e.getDirection() == 0 || e.getDirection() == 1)
-									{
-										eManager.render(e, g);
+						else {
+							if((e.getY()-20)/Tile.TILE_HEIGHT > y && e.getLayer() == z - 1){
+								if(e.getState() == "FALLING") {
+									if(e.getDirection() == 7 || e.getDirection() == 0 || e.getDirection() == 1) {
+										handler.getGame().geteManager().render(e, g);
 									}
-								}
-								else
-									eManager.render(e, g);
-							}		
-							else if(e.getLayer() == z)// renders all entities
-								eManager.render(e, g);
+								} else
+									handler.getGame().geteManager().render(e, g);
+							} else if(e.getLayer() == z)// renders all entities
+								handler.getGame().geteManager().render(e, g);
 						}
 					}
-				}	
+				}
 			}
 		}
-		
-		
 	}
 	
-	public Tile getTile(int x, int y, int z)
-	{
+	public Tile getTile(int x, int y, int z) {
 		Tile t = null;
 		
 		if(x < tiles.length && x >= 0 && y < tiles[0].length && y >= 0 && z < tiles[0][0].length && z >= 0)
-		{
 			t = dungeon.getTile(tiles[x][y][z]);
-		}
 		
 		if(t == null)
 			return new Tile(Assets.black, new CollisionMap("7.txt"), 0);
@@ -144,8 +119,7 @@ public class Level
 	}
 	
 	int nextTile;
-	public void loadLevel(String path)
-	{
+	public void loadLevel(String path) {
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);
@@ -156,10 +130,9 @@ public class Level
 		tiles = new int[width][height][layers];
 		for(int z = 0; z < layers; z++)
 			for(int y = 0; y < height; y++)
-				for(int x = 0; x < width; x++)
-				{
+				for(int x = 0; x < width; x++) {
 					nextTile = Utils.parseInt(tokens[(x + y * width) + (height * width * z) + 4]);
-					if(dungeon != null && nextTile == 7 && rand.nextInt(50) == 1)
+					if(dungeon != null && nextTile == 7 && ThreadLocalRandom.current().nextInt(50) == 1)
 						tiles[x][y][z] = 29;
 					else
 						tiles[x][y][z] = nextTile;
@@ -167,69 +140,52 @@ public class Level
 		
 		int eData = 0;
 		int passes = 0;
-		for(int i = 0; i < numEntities; i++)
-		{
+		for(int i = 0; i < numEntities; i++) {
 			eData = Utils.parseInt(tokens[width * height * layers + 4 + passes]);
+			System.out.println(String.format("E DATA: %d", eData));
+			if(eData == 4) {
+				if(dungeon == null)
+					handler.getGame().geteManager().addEntity(Utils.parseInt(tokens[width * height * layers + 4 + passes + 1]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 2]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 3]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 4]));
 
-				if(eData == 4)
-				{
-					if(dungeon == null)
-						eManager.addEntity(Utils.parseInt(tokens[width * height * layers + 4 + passes + 1]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 2]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 3]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 4]));
-					else
-						dungeon.addEntity(eManager, Utils.parseInt(tokens[width * height * layers + 4 + passes + 1]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 2]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 3]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 4]));
-				}
+				handler.getGame().geteManager().addEntity(Utils.parseInt(tokens[width * height * layers + 4 + passes + 1]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 2]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 3]), Utils.parseInt(tokens[width * height * layers + 4 + passes + 4]));
+			}
 				
 			passes+=eData+1;
 			
 		}
 		
 		Cliffs aCliff = null;
-		if(dungeon != null)
-		{
-			for(int y = 0; y < height; y++)
-			{
-				for(int x = 0; x < width; x++)
-				{
-					if(aCliff == null)
-					{
+		if(dungeon != null) {
+			for(int y = 0; y < height; y++) {
+				for(int x = 0; x < width; x++) {
+					if(aCliff == null) {
 						if(tiles[x][y][0] == 14 || tiles[x][y][0] == 15 || tiles[x][y][0] == 16)
 							aCliff = new Cliffs(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT);
 					}
-					else if(aCliff != null)
-					{
-						if(tiles[x][y][0] != 14 && tiles[x][y][0] != 15 && tiles[x][y][0] != 16)
-						{
+					else if(aCliff != null) {
+						if(tiles[x][y][0] != 14 && tiles[x][y][0] != 15 && tiles[x][y][0] != 16) {
 							aCliff.setEndX(x * Tile.TILE_WIDTH);
-							dungeon.getpLayer().getCliffs().add(aCliff);
+							// dungeon.getpLayer().getCliffs().add(aCliff);
 							aCliff = null;
 						}
 					}
 				}
 				
-				if(aCliff != null)
-				{
+				if(aCliff != null) {
 					aCliff.setEndX(tiles.length * Tile.TILE_WIDTH);
-					dungeon.getpLayer().getCliffs().add(aCliff);
+					// dungeon.getpLayer().getCliffs().add(aCliff);
 					aCliff = null;
 				}
 			}
 		}
-		
 	}
 
 	public int getLastDoorUsed() {return lastDoorUsed;}
 	public void setLastDoorUsed(int lastDoorUsed) {this.lastDoorUsed = lastDoorUsed;}
-	public EntityManager geteManager() {return eManager;}
-	public void seteManager(EntityManager eManager) {this.eManager = eManager;}
+	public EntityManager geteManager() {return handler.getGame().geteManager();}
 	public int getWidth(){return width;}
 	public int getHeight(){return height;}
-
-	public boolean isQuestFloor() {
-		return isQuestFloor;
-	}
-
-	public void setQuestFloor(boolean isQuestFloor) {
-		this.isQuestFloor = isQuestFloor;
-	}
+	public boolean isQuestFloor() { return isQuestFloor; }
+	public void setQuestFloor(boolean isQuestFloor) { this.isQuestFloor = isQuestFloor; }
 	
 }

@@ -19,8 +19,7 @@ public class UserData implements Serializable
 	private List<Item> inventory;
 	private List<Quest> myQuests, boardQuests;
 	
-	public void updateData(Handler handler)
-	{
+	public void updateData(Handler handler) {
 		isFile = true;
 		totalHours = handler.getGame().getGameState().getTotalHours();
 		totalMins = handler.getGame().getGameState().getTotalMins();
@@ -56,21 +55,18 @@ public class UserData implements Serializable
 			mainItemLevels[i] = handler.getGame().getGameState().getLevelManager().getiInterface().getMainItems()[i].getLevel();
 	}
 	
-	public void setData(Handler handler)
-	{
-		if(!isFile)
-		{
+	public void setData(Handler handler) {
+		if(!isFile) {
 			totalHours = totalMins = 0;
 			wItemNum = sItemNum = dItemNum = -1;
 			gameProgress = dungeonsUnlocked = questsCompleted = 0; questTracker = -1;
-			handler.getGame().getGameState().getLevelManager().getBaseCamp().geteManager().getPlayer().setX(930);
-			handler.getGame().getGameState().getLevelManager().getBaseCamp().geteManager().getPlayer().setY(480);
+			handler.getGame().getPlayer().setX(930);
+			handler.getGame().getPlayer().setY(480);
 			handler.getGame().getGameState().getLevelManager().getBaseCamp().setState("MAINAREA");
 			handler.getGame().getGameState().getLevelManager().getBaseCamp().setNPCs();
 			handler.getGame().getGameState().getLevelManager().getBaseCamp().setBarriers();
 		}
-		else
-		{
+		else {
 			handler.getGame().getGameState().setTotalHours(totalHours);
 			handler.getGame().getGameState().setTotalMins(totalMins);
 			
@@ -85,11 +81,10 @@ public class UserData implements Serializable
 			
 			handler.getGame().getGameState().getLevelManager().getBaseCamp().setQuestsCompleted(questsCompleted);
 			handler.getGame().getGameState().getLevelManager().getBaseCamp().setQuestTracker(questTracker);
-			
 
-			handler.getGame().getGameState().getLevelManager().getBaseCamp().geteManager().getPlayer().setDirection(4);
-			handler.getGame().getGameState().getLevelManager().getBaseCamp().geteManager().getPlayer().setX(252);
-			handler.getGame().getGameState().getLevelManager().getBaseCamp().geteManager().getPlayer().setY(244);
+			handler.getGame().geteManager().getPlayer().setDirection(4);
+			handler.getGame().geteManager().getPlayer().setX(252);
+			handler.getGame().geteManager().getPlayer().setY(244);
 			handler.getGame().getGameState().getLevelManager().getBaseCamp().setState("BEDROOM");
 			handler.getGame().getGameState().getLevelManager().getBaseCamp().setBarriers();
 			
@@ -108,18 +103,15 @@ public class UserData implements Serializable
 			else
 				handler.getGame().getGameState().getLevelManager().getBaseCamp().getqBoard().setQuests(new ArrayList<Quest>());
 			
-			if(wItemNum >= 0)
-			{
+			if(wItemNum >= 0) {
 				handler.getGame().getPlayer().setItemW(handler.getGame().getGameState().getLevelManager().getiInterface().getMainItems()[wItemNum]);
 				handler.getGame().getGameState().getLevelManager().getiInterface().getMainItems()[wItemNum].setEquipped(true);
 			}
-			if(sItemNum >= 0)
-			{
+			if(sItemNum >= 0) {
 				handler.getGame().getPlayer().setItemS(handler.getGame().getGameState().getLevelManager().getiInterface().getMainItems()[sItemNum]);
 				handler.getGame().getGameState().getLevelManager().getiInterface().getMainItems()[sItemNum].setEquipped(true);
 			}
-			if(dItemNum >= 0)
-			{
+			if(dItemNum >= 0) {
 				handler.getGame().getPlayer().setItemD(handler.getGame().getGameState().getLevelManager().getiInterface().getMainItems()[dItemNum]);
 				handler.getGame().getGameState().getLevelManager().getiInterface().getMainItems()[dItemNum].setEquipped(true);
 			}
@@ -137,7 +129,6 @@ public class UserData implements Serializable
 	public void setTotalHeartCrystals(int totalHeartCrystals) {
 		this.totalHeartCrystals = totalHeartCrystals;
 	}
-	
 
 	public int getActiveHeartCrystals() {
 		return activeHeartCrystals;
@@ -155,12 +146,8 @@ public class UserData implements Serializable
 		this.isFile = isFile;
 	}
 	
-	public String getTotalPlayTime()
-	{
-		if(totalMins < 10)
-			return totalHours + ":0" + totalMins;
-		else
-			return totalHours + ":" + totalMins;
+	public String getTotalPlayTime() {
+		return (totalMins < 10) ? String.format("%d:0%d", totalHours, totalMins):
+								  String.format("%d:%d", totalHours, totalMins);
 	}
-	
 }

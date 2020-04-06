@@ -222,7 +222,7 @@ public class QuestBoard
 				txtLine2 = txtLine2Rescue[rand.nextInt(txtLine2Rescue.length)];
 				objective = "RESCUE " + client;
 				int dungeon = rand.nextInt(handler.getBaseCamp().getDungeonsUnlocked());
-				location = handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getName();
+				// location = handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getName();
 				
 				//make sure two quests do not happen on same floor
 				floorNums = new int[quests.size() + handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().size()];
@@ -231,15 +231,15 @@ public class QuestBoard
 					floorNums[a] = quests.get(a).getFloorNum();
 				for(int b = quests.size(); b < handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().size(); b++)
 					floorNums[b] = handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().get(b - quests.size()).getFloorNum();
-				int desiredFloor = rand.nextInt(handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getMaxFloors()) + 1;
+				// int desiredFloor = rand.nextInt(handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getMaxFloors()) + 1;
 				int tries = 0;
-				while(Arrays.asList(floorNums).contains(desiredFloor) && tries < 5)
-				{
-					desiredFloor = rand.nextInt(handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getMaxFloors()) + 1;
-					tries++;
-				}
+//				while(Arrays.asList(floorNums).contains(desiredFloor) && tries < 5)
+//				{
+//					desiredFloor = rand.nextInt(handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getMaxFloors()) + 1;
+//					tries++;
+//				}
 				
-				floorNum = desiredFloor;
+				// floorNum = desiredFloor;
 						
 				difficulty = "EASY";
 				

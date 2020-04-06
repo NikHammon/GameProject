@@ -8,7 +8,7 @@ public class Animation
 	private long lastTime, timer;
 	private boolean complete;
 	private BufferedImage[] frames;
-	
+
 	public Animation(int speed, BufferedImage[] frames, int cycles)
 	{
 		this.speed = speed;
