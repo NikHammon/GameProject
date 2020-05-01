@@ -239,7 +239,7 @@ public class WhipSegment extends Monster
 					handler.getGame().getPlayer().setGrappling(x, y);
 					terminate = true;
 				}
-				else if(e instanceof Monster && e.getStatusCondition() != "PARALYZED")
+				else if(e instanceof Monster && ((Monster) e).getStatusCondition() != "PARALYZED")
 				{
 					Creature c = ((Creature)e);
 					Utils.playSound("shock");

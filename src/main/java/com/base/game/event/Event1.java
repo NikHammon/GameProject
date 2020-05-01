@@ -8,19 +8,15 @@ import com.base.game.Handler;
 import com.base.game.Utils;
 import com.base.game.entity.eventEntity.NPC.Ken;
 
-public class Event1 extends Event
-{
-	public Event1(Handler handler)
-	{
+public class Event1 extends Event {
+	public Event1(Handler handler) {
 		super(handler);
 		eventSpace = new Rectangle(930, 480, 150, 150);
 	}
 
 	@Override
-	public boolean meetsRequirements() 
-	{
-		if(handler.getGame().getGameState().getLevelManager().getBaseCamp().getGameProgress() == 0 && handler.getGame().getGameState().getLevelManager().getBaseCamp().getState() == "MAINAREA")
-		{
+	public boolean meetsRequirements() {
+		if(handler.getGame().getGameState().getLevelManager().getBaseCamp().getGameProgress() == 0 && handler.getGame().getGameState().getLevelManager().getBaseCamp().getState() == "MAINAREA") {
 			eManager = handler.getGame().geteManager();
 			player = handler.getGame().getPlayer();
 			return true;
@@ -31,8 +27,7 @@ public class Event1 extends Event
 
 	Ken man = new Ken(handler, 1070, 780, 0);
 	@Override
-	public void run(Graphics g) 
-	{
+	public void run(Graphics g) {
 		switch(operation)
 		{
 		case -1:

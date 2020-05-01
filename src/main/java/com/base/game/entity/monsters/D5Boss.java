@@ -3,6 +3,7 @@ package com.base.game.entity.monsters;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Animation;
 import com.base.game.Assets;
@@ -93,9 +94,9 @@ public class D5Boss extends BossMonster
 	
 	public void lightning()
 	{
-		if(rand.nextInt(100) == 0)
+		if(ThreadLocalRandom.current().nextInt(100) == 0)
 		{
-			handler.getGame().geteManager().addEntity(new LightningStrike(handler, this, rand.nextInt(handler.getWidth()), rand.nextInt(handler.getHeight()) - 244, layer));
+			handler.getGame().geteManager().addEntity(new LightningStrike(handler, this, ThreadLocalRandom.current().nextInt(handler.getWidth()), ThreadLocalRandom.current().nextInt(handler.getHeight()) - 244, layer));
 		}
 	}
 	
@@ -119,7 +120,7 @@ public class D5Boss extends BossMonster
 		
 		move();
 		
-		if(rand.nextInt(100) == 1)
+		if(ThreadLocalRandom.current().nextInt(100) == 1)
 			state = "CHASE";
 	}
 	
@@ -147,7 +148,7 @@ public class D5Boss extends BossMonster
 		if(target.getState() == "DEAD")		
 			state = "IDLE";
 		
-		if(rand.nextInt(attackProb) == 1 && reachRect.intersects(targetBounds))
+		if(ThreadLocalRandom.current().nextInt(attackProb) == 1 && reachRect.intersects(targetBounds))
 		{		
 			setAttack();
 		}
@@ -178,7 +179,7 @@ public class D5Boss extends BossMonster
 	{
 		state = "ATTACK";
 		
-		if(rand.nextInt(1) == 0)
+		if(ThreadLocalRandom.current().nextInt(1) == 0)
 		{
 			attackNum = 0;
 			if(Math.abs(target.getY() - y) > Math.abs(target.getX() - x))

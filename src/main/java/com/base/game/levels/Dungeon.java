@@ -14,21 +14,21 @@ import java.util.stream.IntStream;
 import static java.util.stream.Collectors.toList;
 
 public enum Dungeon {
-    CRAWLY_CAVERN(2, new Point(1090, 610), "D1Theme", Assets.elements[1], Assets.D1Tileset,
+    CRAWLY_CAVERN(2, new Point(1090, 610), "D1Theme", Assets.elements[1], Assets.DungeonTileSets[0],
             new String[]{"SPIDER", "BAT", "BEETLE", "MILI"}, "D1Boss.txt"),
-    GALE_ISLE(1, new Point(630, 540),"D1Theme", Assets.elements[1], Assets.D1Tileset,
+    GALE_ISLE(1, new Point(630, 540),"D1Theme", Assets.elements[2], Assets.DungeonTileSets[1],
             new String[]{"SLIME", "GREMLIN"}, "D1Boss.txt"),
-    SHOCKWAVE_ABYSS(1, new Point(910, 770),"D1Theme", Assets.elements[2], Assets.D1Tileset,
+    SHOCKWAVE_ABYSS(1, new Point(910, 770),"D1Theme", Assets.elements[3], Assets.DungeonTileSets[2],
             new String[]{"STARFISH", "BAT"}, "D1Boss.txt"),
-    DRAGONBREATH_CAVERN(1, new Point(1470, 920),"D1Theme", Assets.elements[3], Assets.D1Tileset,
+    DRAGONBREATH_CAVERN(1, new Point(1470, 920),"D1Theme", Assets.elements[4], Assets.DungeonTileSets[3],
             new String[]{"SPIDER", "BAT"}, "D1Boss.txt"),
-    FROSTY_FJORDS(1, new Point(1190, 270),"D1Theme", Assets.elements[4], Assets.D1Tileset,
+    FROSTY_FJORDS(1, new Point(1190, 270),"D1Theme", Assets.elements[5], Assets.DungeonTileSets[4],
             new String[]{"SPIDER", "BAT"}, "D1Boss.txt"),
-    PALACE_OF_THE_GODS(1, new Point(1870, 680),"D1Theme", Assets.elements[5], Assets.D1Tileset,
+    PALACE_OF_THE_GODS(1, new Point(1870, 680),"D1Theme", Assets.elements[6], Assets.DungeonTileSets[5],
             new String[]{"SPIDER", "BAT"}, "D1Boss.txt"),
-    DARKNIGHT_RIDGE(1, new Point(880, 980),"D1Theme", Assets.elements[6], Assets.D1Tileset,
+    DARKNIGHT_RIDGE(1, new Point(880, 980),"D1Theme", Assets.elements[7], Assets.DungeonTileSets[6],
             new String[]{"SPIDER", "BAT"}, "D1Boss.txt"),
-    FORSAKEN_LAND(1, new Point(1490, 380),"D1Theme", Assets.elements[7], Assets.D1Tileset,
+    FORSAKEN_LAND(1, new Point(1490, 380),"D1Theme", Assets.elements[8], Assets.DungeonTileSets[7],
             new String[]{"SPIDER", "BAT"}, "D1Boss.txt");
 
     private final int bossFloor;
@@ -61,5 +61,6 @@ public enum Dungeon {
     public Tile getTile(int tile) {
         return tiles.get(tile);
     }
+    public String getTheme() { return theme; }
 }
 

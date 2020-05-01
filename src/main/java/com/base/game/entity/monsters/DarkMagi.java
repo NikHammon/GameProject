@@ -2,6 +2,7 @@ package com.base.game.entity.monsters;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Animation;
 import com.base.game.Assets;
@@ -101,7 +102,7 @@ public class DarkMagi extends Monster
 	{
 		if(attackCount < 0)
 		{
-			maxAttackTimes=rand.nextInt(6) + 3;
+			maxAttackTimes= ThreadLocalRandom.current().nextInt(6) + 3;
 			attackCount ++;
 		}
 		if(currentAnimation.isComplete())

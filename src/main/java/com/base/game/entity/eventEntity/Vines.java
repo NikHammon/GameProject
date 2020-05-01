@@ -14,19 +14,7 @@ import com.base.game.tiles.Tile;
 public class Vines extends EventEntity
 {
 	private int lyHeight;
-	
-//	public Vines(Handler handler, float x, float y, int layer, int lyHeight) {
-//		super(handler, x, y, layer, Tile.TILE_WIDTH, Tile.TILE_HEIGHT * lyHeight);
-//		setBounds(new Rectangle(18, -1, 30, 72 * lyHeight));
-//		
-//		eventSpace = getCollisionBounds(0, 0);
-//		setBounds(new Rectangle(0,0,0,0));
-//		
-//		renderOrder = 1;
-//		this.layer = layer;
-//		this.lyHeight = lyHeight;
-//	}
-	
+
 	public Vines(Handler handler, float x, float y, int layer) {
 		super(handler, x, y, layer, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 		setBounds(new Rectangle(18, -20, 30, 92));
@@ -41,13 +29,11 @@ public class Vines extends EventEntity
 
 	int tempLayer;
 	Player player;
-	@Override
-	public void update()
-	{
+
+	@Override public void update() {
 		player = handler.getLevel().geteManager().getPlayer();
 		
-		if(!on && player.getState() == "CHASE" && player.getCollisionBounds(0,0).intersects(eventSpace))
-		{
+		if(!on && player.getState() == "CHASE" && player.getCollisionBounds(0,0).intersects(eventSpace)) {
 			tempLayer = player.getLayer();
 			if(player.getyMove() > 0)
 				player.setState("CLIMBINGDOWN");
@@ -58,32 +44,21 @@ public class Vines extends EventEntity
 		}
 		else if(on && !player.getCollisionBounds(0,0).intersects(eventSpace))
 		{
-			if(player.getState() == "CLIMBINGDOWN")
-			{
+			if(player.getState() == "CLIMBINGDOWN") {
 				player.setState("CHASE");
 				player.setLayer(tempLayer - lyHeight);
 			}
-			else if(player.getState() == "CLIMBINGUP")
-			{
+			else if(player.getState() == "CLIMBINGUP") {
 				player.setState("CHASE");
 				player.setLayer(tempLayer + lyHeight);
 			}
 			on = false;
 			
-		}		
-		
+		}
 	}
 	
-	
-	
-	
 
-	@Override
-	public void render(Graphics g) 
-	{
-		g.drawImage(Assets.vines, (int) (x - handler.getCamera().getxOffset()),(int) (y - handler.getCamera().getyOffset()), width, height, null);	
-	
-//		g.setColor(Color.red);
-//		g.fillRect((int)(x + bounds.x - handler.getCamera().getxOffset()), (int)(y + bounds.y - handler.getCamera().getyOffset()), bounds.width, bounds.height);
+	@Override public void render(Graphics g) {
+		g.drawImage(Assets.vines, (int) (x - handler.getCamera().getxOffset()),(int) (y - handler.getCamera().getyOffset()), width, height, null);
 	}
 }

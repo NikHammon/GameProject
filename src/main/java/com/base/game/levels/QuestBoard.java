@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Assets;
 import com.base.game.Handler;
@@ -199,29 +200,29 @@ public class QuestBoard
 		
 		int numOfQuests;
 		if(handler.getBaseCamp().getDungeonsUnlocked() < 5)
-			numOfQuests = rand.nextInt(3) + 1;
+			numOfQuests = ThreadLocalRandom.current().nextInt(3) + 1;
 		else
-			numOfQuests = rand.nextInt(3) + 5;
+			numOfQuests = ThreadLocalRandom.current().nextInt(3) + 5;
 		
 		for(int i = 0; i < numOfQuests; i++)
 		{
 			switch(0)
 			{
 			case 0://rescue case
-				if(rand.nextInt(2) == 0)
+				if(ThreadLocalRandom.current().nextInt(2) == 0)
 				{
-					client = clientMale[rand.nextInt(clientMale.length)];
+					client = clientMale[ThreadLocalRandom.current().nextInt(clientMale.length)];
 					isClientMale = true;
 				}
 				else
 				{
-					client = clientFemale[rand.nextInt(clientFemale.length)];
+					client = clientFemale[ThreadLocalRandom.current().nextInt(clientFemale.length)];
 					isClientMale = false;
 				}
-				txtLine1 = txtLine1Rescue[rand.nextInt(txtLine1Rescue.length)];
-				txtLine2 = txtLine2Rescue[rand.nextInt(txtLine2Rescue.length)];
+				txtLine1 = txtLine1Rescue[ThreadLocalRandom.current().nextInt(txtLine1Rescue.length)];
+				txtLine2 = txtLine2Rescue[ThreadLocalRandom.current().nextInt(txtLine2Rescue.length)];
 				objective = "RESCUE " + client;
-				int dungeon = rand.nextInt(handler.getBaseCamp().getDungeonsUnlocked());
+				int dungeon = ThreadLocalRandom.current().nextInt(handler.getBaseCamp().getDungeonsUnlocked());
 				// location = handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getName();
 				
 				//make sure two quests do not happen on same floor
@@ -231,11 +232,11 @@ public class QuestBoard
 					floorNums[a] = quests.get(a).getFloorNum();
 				for(int b = quests.size(); b < handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().size(); b++)
 					floorNums[b] = handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().get(b - quests.size()).getFloorNum();
-				// int desiredFloor = rand.nextInt(handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getMaxFloors()) + 1;
+				// int desiredFloor = ThreadLocalRandom.current().nextInt(handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getMaxFloors()) + 1;
 				int tries = 0;
 //				while(Arrays.asList(floorNums).contains(desiredFloor) && tries < 5)
 //				{
-//					desiredFloor = rand.nextInt(handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getMaxFloors()) + 1;
+//					desiredFloor = ThreadLocalRandom.current().nextInt(handler.getGame().getGameState().getLevelManager().getDungeons().get(dungeon).getMaxFloors()) + 1;
 //					tries++;
 //				}
 				

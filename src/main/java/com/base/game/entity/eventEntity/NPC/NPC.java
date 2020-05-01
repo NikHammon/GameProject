@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Animation;
 import com.base.game.Assets;
@@ -79,22 +80,22 @@ public class NPC extends EventEntity
 	protected boolean moveVert, moveHr;
 	private void randomMove()
 	{		
-		if(rand.nextInt(moveProb) == 0 && moveVert)
+		if(ThreadLocalRandom.current().nextInt(moveProb) == 0 && moveVert)
 		{
 			moveVert = false;
 			setForceMove("UP");
 		}
-		else if(rand.nextInt(moveProb)==1 && !moveVert)
+		else if(ThreadLocalRandom.current().nextInt(moveProb)==1 && !moveVert)
 		{
 			moveVert = true;
 			setForceMove("DOWN");
 		}
-		else if(rand.nextInt(moveProb)==2 && moveHr)
+		else if(ThreadLocalRandom.current().nextInt(moveProb)==2 && moveHr)
 		{
 			moveHr = false;
 			setForceMove("RIGHT");
 		}
-		else if(rand.nextInt(moveProb)==3 && !moveHr)
+		else if(ThreadLocalRandom.current().nextInt(moveProb)==3 && !moveHr)
 		{
 			moveHr = true;
 			setForceMove("LEFT");

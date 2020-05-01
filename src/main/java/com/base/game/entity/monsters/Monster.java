@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Animation;
 import com.base.game.Assets;
@@ -156,10 +157,10 @@ public abstract class Monster extends Creature
 		if(randDirection != oldDirection)
 			randomMove();
 		
-		if(rand.nextInt(20) == 1)
+		if(ThreadLocalRandom.current().nextInt(20) == 1)
 		{
 			oldDirection = randDirection;
-			randDirection = rand.nextInt(25);
+			randDirection = ThreadLocalRandom.current().nextInt(25);
 		}
 			
 		if(sightRect.intersects(targetBounds) && target.getState() != "DEAD")
@@ -234,7 +235,7 @@ public abstract class Monster extends Creature
 			setForceMove(shortestPath);
 			
 		}		
-		if(rand.nextInt(attackProb) == 1 && reachRect.intersects(targetBounds))
+		if(ThreadLocalRandom.current().nextInt(attackProb) == 1 && reachRect.intersects(targetBounds))
 		{
 			
 			setAttack();

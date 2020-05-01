@@ -1,6 +1,7 @@
 package com.base.game.entity.monsters;
 
 import java.awt.Rectangle;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Handler;
 import com.base.game.Utils;
@@ -65,7 +66,7 @@ public abstract class BossMonster extends Monster
 		if(target.getState() == "DEAD")		
 			state = "IDLE";
 		
-		if(rand.nextInt(attackProb) == 1 && reachRect.intersects(targetBounds))
+		if(ThreadLocalRandom.current().nextInt(attackProb) == 1 && reachRect.intersects(targetBounds))
 		{		
 			setAttack();
 		}

@@ -10,8 +10,7 @@ import com.base.game.entity.Entity;
 import com.base.game.entity.Player;
 import com.base.game.tiles.Tile;
 
-public class Ooze extends StaticEntity
-{
+public class Ooze extends StaticEntity {
 	public Ooze(Handler handler, float x, float y, int layer) {
 		super(handler, x, y, layer, Tile.TILE_WIDTH, Tile.TILE_HEIGHT);
 		renderOrder = 1;
@@ -22,25 +21,23 @@ public class Ooze extends StaticEntity
 
 	int duration = 0;
 	@Override
-	public void update()
-	{
+	public void update() {
 		currentAnimation.update();	
 		
-		if(currentAnimation.isComplete())
-		{
+		if(currentAnimation.isComplete()) {
 			duration++;
 			currentAnimation.reset();
 		}
 		
 		if(duration > 5)
-		{
 			handler.getGame().geteManager().getEntities().remove(this);
-		}
 	}
 	
-	public void damageEntity(Entity e)
-	{
-		e.setStatusCondition("POISONED");
+	public void damageEntity(Entity e) {
+		if( e instanceof  Creature){
+			Creature c = (Creature) e;
+			c.setStatusCondition("POISONED");
+		}
 	}
 
 	@Override

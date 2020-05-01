@@ -16,8 +16,7 @@ public class TreasureChest extends EventEntity
 	private MainItem mainItem;
 	private String string = "";
 	private boolean opened;
-	public TreasureChest(Handler handler, float x, float y, int layer, int direction, Item item) 
-	{
+	public TreasureChest(Handler handler, float x, float y, int layer, int direction, Item item) {
 		super(handler, x, y, layer, 64, 96);
 		bounds.x = 0;
 		bounds.y = 53;
@@ -29,8 +28,7 @@ public class TreasureChest extends EventEntity
 		
 	}
 	
-	public TreasureChest(Handler handler, float x, float y, int layer, int direction, MainItem mainItem) 
-	{
+	public TreasureChest(Handler handler, float x, float y, int layer, int direction, MainItem mainItem) {
 		super(handler, x, y, layer, 64, 96);
 		bounds.x = 0;
 		bounds.y = 53;
@@ -42,8 +40,7 @@ public class TreasureChest extends EventEntity
 		
 	}
 	
-	public TreasureChest(Handler handler, float x, float y, int layer, int direction, String string) 
-	{
+	public TreasureChest(Handler handler, float x, float y, int layer, int direction, String string) {
 		super(handler, x, y, layer, 64, 96);
 		bounds.x = 0;
 		bounds.y = 53;
@@ -55,43 +52,35 @@ public class TreasureChest extends EventEntity
 		
 	}
 	
-	public void checkDirection(int direction)
-	{
-		if(direction == 0)
-		{
+	public void checkDirection(int direction) {
+		if(direction == 0) {
 			currentAnimation = new Animation(100, Assets.chestUp, 1);
 			eventSpace = new Rectangle(getCollisionBounds(0,0).x + 10, getCollisionBounds(0,0).y - 25, bounds.width - 20, bounds.height);
 		}
-		else if(direction == 1)
-		{
+		else if(direction == 1) {
 			currentAnimation = new Animation(100, Assets.chestRight, 1);
 			eventSpace = new Rectangle(getCollisionBounds(0,0).x - 10, getCollisionBounds(0,0).y + 10, bounds.width - 10, bounds.height);
 		}
-		else if(direction == 2)
-		{
+		else if(direction == 2) {
 			currentAnimation = new Animation(100, Assets.chestDown, 1);
 			eventSpace = new Rectangle(getCollisionBounds(0,0).x + 10, getCollisionBounds(0,0).y + 20, bounds.width - 20, bounds.height);
 		}
-		else
-		{
+		else {
 			currentAnimation = new Animation(100, Assets.chestLeft, 1);
 			eventSpace = new Rectangle(getCollisionBounds(0,0).x + 20, getCollisionBounds(0,0).y + 10, bounds.width - 10, bounds.height);
 		}
 	}
 
 	@Override
-	public void update()
-	{	
-		if(on && !opened)
-		{
+	public void update() {
+		if(on && !opened) {
 			currentAnimation.update();
 			if(item != null)
 				handler.getGame().getGameState().getLevelManager().getiInterface().addItem(item);
 			else if(mainItem != null)
 				handler.getGame().getGameState().getLevelManager().getiInterface().getMainItems()[mainItem.getID()] = mainItem;
-			else if(string == "HEARTCRYSTAL")
-			{
-				handler.getBaseCamp().getChestsOpened()[handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon()] = true;
+			else if(string == "HEARTCRYSTAL") {
+				//handler.getBaseCamp().getChestsOpened()[handler.getGame().getGameState().getLevelManager().getNumCurrentDungeon()] = true;
 				handler.getGame().getPlayer().addHeartCrystal();
 			}
 			

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Animation;
 import com.base.game.Assets;
@@ -136,7 +137,7 @@ public class LightKnight extends Monster
 	{
 		state = "ATTACK";
 		
-		if(rand.nextInt(3) == 0)
+		if(ThreadLocalRandom.current().nextInt(3) == 0)
 		{
 			attackNum = 0;
 			if(target.getX() > x)
@@ -190,7 +191,7 @@ public class LightKnight extends Monster
 	{	
 		if(state != "KNOCKBACK" && state != "RECOVERING" && state != "BLOCKING")
 		{		
-			if(rand.nextInt(5) == 0)
+			if(ThreadLocalRandom.current().nextInt(5) == 0)
 			{
 				health-=damage;
 				rVal = 200;	

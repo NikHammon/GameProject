@@ -5,34 +5,17 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.base.game.Assets;
 import com.base.game.Handler;
 import com.base.game.entity.eventEntity.DungeonDoor;
-import com.base.game.entity.eventEntity.QuestEntity;
 import com.base.game.entity.eventEntity.Vines;
 import com.base.game.entity.monsters.Millipede;
-import com.base.game.entity.staticEntity.StaticEntity1;
 import com.base.game.tiles.Tile;
 
-public class EntityManager 
-{
+public class EntityManager {
 	private Handler handler;
 	private Player player;
 	public List<Entity> entities;
-	private Comparator<Entity> Sorter = new Comparator<Entity>(){
-		@Override public int compare(Entity a, Entity b) {
-			if(a.renderOrder < b.renderOrder)
-				return -1;
-			else if(b.renderOrder < a.renderOrder)
-				return 1;
-			
-			else if(a.getY() + a.getHeight() < b.getY() + b.getHeight())
-				return -1;
-			else
-				return 1;
-		}
-	};
-	
+
 	public EntityManager(Handler handler, Player player) {
 		this.setHandler(handler);
 		this.setPlayer(player);
@@ -43,117 +26,87 @@ public class EntityManager
 	public void removeAllExcept(Entity entityToKeep) {
 		entities.removeIf(e -> e != entityToKeep);
 	}
-	
+
 	public void update() {
-		for(Entity e: entities)
-			if(!e.doNotUpdate)
+		for (Entity e : entities)
+			if (!e.doNotUpdate)
 				e.update();
 
-//			//lot of Creature specific references, therefore surround this with a test of Creature.
-//			else if(entities.get(i) instanceof Creature){
-//				
-//				//STUN HANDLING  (must make stunned entity have a doNotUpdate value of false)
-//				
-//				//first, lower stun threshold but let Creature move
-//				if (((Creature) entities.get(i)).getStunThreshold() > 0)
-//				{
-//					//decrements the creature's stun threshold (temporary stun immunity) by 1
-//					((Creature) entities.get(i)).setStunThreshold((((Creature) entities.get(i)).getStunThreshold())-1);
-//					entities.get(i).update();
-//				//then, run stun time and don't let Creature move
-//				}else if(((Creature) entities.get(i)).getStunDuration() > 0)
-//				{
-//					//decrements the creature's stun time by 1
-//					((Creature) entities.get(i)).setStunDuration((((Creature) entities.get(i)).getStunDuration())-1);
-//				}
-//				//and, finally, free it from hitstun hell
-//				else
-//				{
-//					entities.get(i).setDoNotUpdate(false);
-//				}
-//			}
-		entities.sort(Sorter);
+		Collections.sort(entities);
 	}
 
 	public void render(Entity e, Graphics g) {
-		if(!e.isDoNotRender())
-			e.render(g);	
+		if (!e.isDoNotRender())
+			e.render(g);
 	}
-	
+
 	public void addEntity(Entity e) {
 		entities.add(e);
 	}
-	
-	public void addEntity(int eNum, int x, int y, int l) {
 
-//		switch(eNum)
-//		{
-////		case 4:
-////			entities.add(new Girl(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l));
-////			break;
-////		case 7:
-////			entities.add(new SpecialDoor(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l));//only one case, allows entrance to any dungeon
-////			break;
-//		}
-	System.out.println(String.format("ENTITY ADDED: %d", eNum));
-		switch(eNum) {
+	public void addEntity(int eNum, int x, int y, int l) {
+		switch (eNum) {
 			case 0:
 				entities.add(new DungeonDoor(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l));
 				break;
 			case 1:
-				if(ThreadLocalRandom.current().nextInt(2) == 1)
-					entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "SPIDER", ThreadLocalRandom.current().nextInt(2)));
+				if (ThreadLocalRandom.current().nextInt(2) == 1)
+					entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "SPIDER",
+							ThreadLocalRandom.current().nextInt(2)));
 				else
-					entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "BAT", ThreadLocalRandom.current().nextInt(2)));
+					entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "BAT",
+							ThreadLocalRandom.current().nextInt(2)));
 				break;
 			case 2:
-				entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "BEETLE", ThreadLocalRandom.current().nextInt(2)));
+				entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "BEETLE",
+						ThreadLocalRandom.current().nextInt(2)));
 				break;
 			case 3:
-				entities.add(new Millipede(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, ThreadLocalRandom.current().nextInt(9)+5, ThreadLocalRandom.current().nextInt(2), ""));
+				entities.add(new Millipede(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l,
+						ThreadLocalRandom.current().nextInt(9) + 5, ThreadLocalRandom.current().nextInt(2), ""));
 				break;
 			case 4:
-//				tempSE = new StaticEntity1(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l);
-//				tempSE.setMyImage(Assets.D1StaticEntities1[0]);
-//				entities.add(tempSE);
 				break;
 			case 5:
-				if(ThreadLocalRandom.current().nextInt(2) == 1)
-					entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "CRATE", ThreadLocalRandom.current().nextInt(2)));
+				if (ThreadLocalRandom.current().nextInt(2) == 1)
+					entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "CRATE",
+							ThreadLocalRandom.current().nextInt(2)));
 				else
-					entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "BOULDER", ThreadLocalRandom.current().nextInt(2)));
+					entities.add(new Emitter(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, "BOULDER",
+							ThreadLocalRandom.current().nextInt(2)));
 				break;
 			case 9:
 				entities.add(new Vines(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l));
 				break;
-//			case 6:
-//				for(int i = 0; i < handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().size(); i++)
-//				{
-//					if(handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().get(i).getLocation().equals(name))
-//					{
-//						if(handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().get(i).getFloorNum() == currentFloorNum)
-//						{
-//							eManager.addEntity(new QuestEntity(handler, x * Tile.TILE_WIDTH, y * Tile.TILE_HEIGHT, l, handler.getGame().getGameState().getLevelManager().getiInterface().getMyQuests().get(i)));
-//							generatedQuestFloor = true;
-//						}
-//					}
-//				}
-//				break;
 		}
-		
 	}
-	
+
 	public void removeEntity(Entity e) {
 		entities.remove(e);
 	}
-	
-	
-	
-	public Handler getHandler() {return handler;}
-	public void setHandler(Handler handler) {this.handler = handler;}
-	public Player getPlayer() {return player;}
-	public void setPlayer(Player player) {this.player = player;}
-	public List<Entity> getEntities() {return entities;}
-	public void setEntities(ArrayList<Entity> entities) {this.entities = entities;}
-			
+
+	public Handler getHandler() {
+		return handler;
+	}
+
+	public void setHandler(Handler handler) {
+		this.handler = handler;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public List<Entity> getEntities() {
+		return entities;
+	}
+
+	public void setEntities(ArrayList<Entity> entities) {
+		this.entities = entities;
+	}
+
 }

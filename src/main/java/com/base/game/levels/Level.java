@@ -14,8 +14,7 @@ import com.base.game.entity.Player;
 import com.base.game.tiles.CollisionMap;
 import com.base.game.tiles.Tile;
 
-public class Level 
-{
+public class Level {
 	public static final int DEFAULT_LEVEL_WIDTH = 20,
 							DEFAULT_LEVEL_HEIGHT = 20;
 		
@@ -34,18 +33,9 @@ public class Level
 		this.dungeon = dungeon;
 		loadLevel(path);
 	}
-
-	public void spawnPlayer(int spawnX, int spawnY, int spawnLayer) {
-		handler.getGame().getPlayer().setX(spawnX);
-		handler.getGame().getPlayer().setY(spawnY);
-		handler.getGame().getPlayer().setLayer(spawnLayer);
-	}
 	
 	public void update() {
 		handler.getGame().geteManager().update();
-
-//		if(dungeon != null)
-//			dungeon.getpLayer().update(handler.getGame().getPlayer().getxVel(), handler.getGame().getPlayer().getyVel());
 	}	
 	
 	public void render(Graphics g) {
@@ -54,38 +44,20 @@ public class Level
 		int xEnd = (int) Math.min(width, (handler.getCamera().getxOffset() + handler.getWidth()) / Tile.TILE_WIDTH + 1);
 		int yStart = (int) Math.max(0, handler.getCamera().getyOffset() / Tile.TILE_HEIGHT);
 		int yEnd = (int) Math.min(height, (handler.getCamera().getyOffset() + handler.getHeight()) / Tile.TILE_HEIGHT + 1);
-		
-//		if(dungeon != null)
-//		{
-//			dungeon.getpLayer().render(g);
-//		}
-		
+
 		for(int z = 0; z < layers; z++) {
 			for(int y = yStart; y < yEnd; y++) {
 				for(int x = xStart; x < xEnd; x++) {
-					if(dungeon != null && z == 0) {
-						if(tiles[x][y][z] == 14)
-							dungeon.getTile(26).render(g, (int)(x * Tile.TILE_WIDTH - handler.getCamera().getxOffset()),
-									(int)(y * Tile.TILE_HEIGHT - handler.getCamera().getyOffset()));
-						else if(tiles[x][y][z] == 15)
-							dungeon.getTile(27).render(g, (int)(x * Tile.TILE_WIDTH - handler.getCamera().getxOffset()),
-									(int)(y * Tile.TILE_HEIGHT - handler.getCamera().getyOffset()));
-						else if(tiles[x][y][z] == 16)
-							dungeon.getTile(28).render(g, (int)(x * Tile.TILE_WIDTH - handler.getCamera().getxOffset()),
-									(int)(y * Tile.TILE_HEIGHT - handler.getCamera().getyOffset()));
+					if(dungeon != null && z == 0 && (tiles[x][y][z] == 14 || tiles[x][y][z] == 15 || tiles[x][y][z] == 16))
+						tiles[x][y][z] += 12; // 14 becomes 26 to represent the lower tiles that fade to black in dungeons
 
-					}
-					else if(tiles[x][y][z] != 0) {
+					if(tiles[x][y][z] != 0)
 						getTile(x,y,z).render(g, (int)(x * Tile.TILE_WIDTH - handler.getCamera().getxOffset()),
-								(int)(y * Tile.TILE_HEIGHT - handler.getCamera().getyOffset()));
-					}
-					
-				
-					
+												 (int)(y * Tile.TILE_HEIGHT - handler.getCamera().getyOffset()));
 				}
 
 				for(Entity e : handler.getGame().geteManager().getEntities()) {
-					if(e.getX() + e.getWidth() > xStart * (Tile.TILE_WIDTH - 1) && e.getX() < xEnd * (Tile.TILE_WIDTH) && e.getY() + e.getHeight() > yStart * (Tile.TILE_HEIGHT - 1) && e.getY() < yEnd * (Tile.TILE_HEIGHT)) {
+					if(isEntityOnScreen(e, xStart, xEnd, yStart, yEnd)) {
 						if(e.isRenderBelowTile()) {
 							if(e.getLayer() == z + 1)
 								handler.getGame().geteManager().render(e, g);
@@ -105,6 +77,13 @@ public class Level
 				}
 			}
 		}
+	}
+
+	private boolean isEntityOnScreen(Entity e, int xStart, int xEnd, int yStart, int yEnd) {
+		return e.getX() + e.getWidth() > xStart * (Tile.TILE_WIDTH - 1) &&
+			   e.getX() < xEnd * (Tile.TILE_WIDTH) &&
+			   e.getY() + e.getHeight() > yStart * (Tile.TILE_HEIGHT - 1) &&
+			   e.getY() < yEnd * (Tile.TILE_HEIGHT);
 	}
 	
 	public Tile getTile(int x, int y, int z) {
@@ -187,5 +166,4 @@ public class Level
 	public int getHeight(){return height;}
 	public boolean isQuestFloor() { return isQuestFloor; }
 	public void setQuestFloor(boolean isQuestFloor) { this.isQuestFloor = isQuestFloor; }
-	
 }

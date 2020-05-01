@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.base.game.Animation;
 import com.base.game.Assets;
@@ -204,7 +205,7 @@ public class Scorpion extends Monster
 		
 		Rectangle playerBounds = handler.getLevel().geteManager().getPlayer().getCollisionBounds(0, 0);
 		Random rand = new Random();
-		int tryAttack = rand.nextInt(40);
+		int tryAttack = ThreadLocalRandom.current().nextInt(40);
 		
 		reachRect = new Rectangle((int)(getCollisionBounds(0,0).x - 150), (int)(getCollisionBounds(0,0).y + bounds.height - reach * Tile.TILE_HEIGHT/2), 3 * reach * Tile.TILE_WIDTH, reach * Tile.TILE_HEIGHT);
 		if(tryAttack == 1 && reachRect.intersects(playerBounds) && handler.getLevel().geteManager().getPlayer().getHealth() >= 0)
